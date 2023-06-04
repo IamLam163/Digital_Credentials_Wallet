@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaGithub } from 'react-icons/fa';
 import { FooterContainer, FooterWrap, FooterLinksContainer, FooterLinksWrapper, FooterLinkItems, FooterLinkTitle, FooterLink, SocialMediaWrap, SocialLogo, WebsiteRights, SocialIcons, SocialIconLink,  SocialMedia } from './FooterElements';
 import { animateScroll as scroll } from 'react-scroll';
 const Footer = () => {
@@ -56,6 +56,9 @@ const Footer = () => {
                     </SocialIconLink>
                       <SocialIconLink href='/www.twitter.com/erick_adikah' target='_blank' aria-label='Twitter'>
                     <FaTwitter />
+                    </SocialIconLink>
+                    <SocialIconLink href='/www.twitter.com/erick_adikah' target='_blank' aria-label='Twitter'>
+                    <FaGithub />
                     </SocialIconLink>
                 </SocialIcons>
             </SocialMediaWrap>

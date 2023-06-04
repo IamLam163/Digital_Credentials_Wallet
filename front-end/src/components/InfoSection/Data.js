@@ -37,14 +37,14 @@ export const HomeObjTwo = {
 }
 
 export const HomeObjThree = {
-    id: 'signup',
+    id: 'contact Us',
     lightBg: false,
     lightText: true,
     lightTextDesc: true,
     topLine: 'Digital Wallet',
     headline: 'Creating an account is extremely easy',
     description: 'What Are you Waiting for Get everything set up and ready in under 10 minutes. All you need to do is add your information and you re ready to go.',
-    buttonLabel: 'Start Now',
+    buttonLabel: 'Sign Up Today',
     imgStart: false,
     img: require('../../images/svg-7.svg').default,
     alt: 'Papers',
