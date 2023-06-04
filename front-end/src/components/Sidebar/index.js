@@ -26,7 +26,7 @@ function Sidebar({ isOpen, toggle }) {
              <SidebarLink to="#discover" onClick={toggle}>
             Discover
           </SidebarLink>
-             <SidebarLink to="#services" onClick={toggle}>
+             <SidebarLink to="#Services" onClick={toggle}>
             Services
           </SidebarLink>
              <SidebarLink to="#signup" onClick={toggle}>

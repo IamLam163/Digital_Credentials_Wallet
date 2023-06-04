@@ -42,7 +42,7 @@ function Navbar ({toggle}) {
                    >Discover</NavLinks>
                 </NavItem>
                 <NavItem>
-                  <NavLinks to='signin' 
+                  <NavLinks to='contact Us' 
                   smooth={true}
                    duration={500} 
                    spy={true} 
@@ -52,7 +52,14 @@ function Navbar ({toggle}) {
                    >Contact Us</NavLinks>
                 </NavItem>
                 <NavItem>
-                <NavLinks to='services'> Services
+                <NavLinks to='Services'
+                  smooth={true}
+                   duration={500} 
+                   spy={true} 
+                   exact='true' 
+                   offset={-80} 
+                   activeClass='active'
+                > Services
                 </NavLinks>
                 </NavItem>
                 <NavBtn>
