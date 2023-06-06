@@ -40,14 +40,15 @@ const HeroSection = () => {
         onMouseLeave={onHover} 
         primary="true"
         dark='true'
-        smooth={true}
-        duration={500} 
-          spy={true} 
-          exact='true' 
-          offset={-80} 
-          activeClass='active'
+        // smooth={true}
+        // duration={500} 
+        //   spy={true} 
+        //   exact='true' 
+        //   offset={-80} 
+        //   activeClass='active'
         >
-          Get started { hover ? <ArrowForward /> : <ArrowRight />}
+          Get started { hover ? <ArrowForward /> : <ArrowRight
+        />}
         </Button>
         </HeroBtnWrapper>
       </HeroContent>
