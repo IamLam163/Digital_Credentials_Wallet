@@ -20,7 +20,7 @@ function Sidebar({ isOpen, toggle }) {
         </Icon>
         <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to="#About" onClick={toggle}>
+          <SidebarLink to="#about" onClick={toggle}>
             About
           </SidebarLink>
              <SidebarLink to="#discover" onClick={toggle}>

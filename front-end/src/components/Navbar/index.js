@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaBars } from 'react-icons/fa'
 import { IconContext } from 'react-icons/lib'
-import {animateScroll as scroll} from 'react-scroll'
+// import {animateScroll as scroll} from 'react-scroll'
 import {Nav,
   NavbarContainer,
   NavLogo, 
@@ -24,8 +24,8 @@ function Navbar ({toggle}) {
                 <ApiIcon sx={{ fontSize: 40 }} />
                 <p style={{ fontSize: 12}}>Digital Wallet</p>
                 </NavLogo>
-                <MobileIcon onClick={toggle}>
-                  <FaBars />
+                <MobileIcon >
+                  <FaBars onClick={toggle}/>
                 </MobileIcon>
                 <NavMenu>
                   <NavItem>
@@ -34,7 +34,7 @@ function Navbar ({toggle}) {
                 <NavItem>
                   <NavLinks to='discover' 
                   smooth={true}
-                   duration={500} 
+                   duration={500}
                    spy={true} 
                    exact='true' 
                    offset={-80}

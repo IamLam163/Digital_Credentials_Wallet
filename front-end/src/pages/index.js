@@ -16,12 +16,12 @@ const Home = () => {
   return (
     <>
       <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar toggle={toggle} />
+      <Navbar/>
       <HeroSection />
       <InfoSection {...HomeObjOne} />
       <InfoSection {...HomeObjTwo} />
-      <InfoSection {...HomeObjThree} />
       <Services />
+      <InfoSection {...HomeObjThree} />
       <Footer />
     </>
   )
