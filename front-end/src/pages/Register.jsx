@@ -25,8 +25,8 @@ export default function Register() {
         toast.error(data.error);
       } else {
         setData({})
-        toast.success('Login Successful!')
-        navigate('/')
+        toast.success('Congratulations Signup successful!');
+        navigate('/');
       }
     } catch (error) {
       console.log(error.toString());

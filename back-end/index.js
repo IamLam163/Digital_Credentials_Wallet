@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import router from './routes/authRoutes.js';
 import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 
 dotenv.config()
 
@@ -19,14 +20,17 @@ mongoose.connect(process.env.MONGO_URL)
     console.log('Database connection failed!', err.toString())
   })
 
+// Set CORS headers
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 
 //Middleware
-app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-Access - Control - Allow - Origin; 'http://localhost:3000';
-Access - Control - Allow - Credentials; true;
 
 //routes
 app.use('/', router);
