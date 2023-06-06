@@ -16,25 +16,24 @@ export const HomeObjOne = {
 }
 
 export const HomeObjTwo = {
-    id: 'discover',
-    lightBg: true,
-    lightText: false,
-    lightTextDesc: false,
-    topLine: 'Unlimited Access',
-    headline: 'Find your data across all your devices Say Goodbye to lost data\
-    Welcome  to Cross-Platform Data Storage.',
-    description: 'Add your CV, passport and other document now!\
-             Sign Up and start uploading right away.\
-    All the links that you need you can as well add then in the free space\
-    provided for you.',
-    buttonLabel: 'Learn More',
-    imgStart: true,
-    img: require('../../images/svg-2.svg').default,
-    alt: 'Online transaction',
-    dark: false,
-    primary: false,
-    darkText: true
-}
+  id: 'discover',
+  lightBg: true,
+  lightText: false,
+  lightTextDesc: false,
+  topLine: 'Unlimited Access',
+  headline: `Find your data across all your devices Say Goodbye to lost data
+    Welcome to Cross-Platform Data Storage.`,
+  description: `Add your CV, passport and other documents now!
+    Sign up and start uploading right away.
+    You can also add all the links you need in the free space provided for you.`,
+  buttonLabel: 'Learn More',
+  imgStart: true,
+  img: require('../../images/svg-2.svg').default,
+  alt: 'Online transaction',
+  dark: false,
+  primary: false,
+  darkText: true
+};
 
 export const HomeObjThree = {
     id: 'contact Us',

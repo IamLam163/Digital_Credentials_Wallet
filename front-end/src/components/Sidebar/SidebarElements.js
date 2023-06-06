@@ -8,9 +8,9 @@ export const SidebarContainer = styled.aside`
     z-index: 999;
     width: 100%;
     height: 100%;
-    background: url('https://images.unsplash.com/photo-1637169797848-12431f1d355c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdhbGxldHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60') no-repeat center center/cover;
+    // background: url('https://images.unsplash.com/photo-1637169797848-12431f1d355c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHdhbGxldHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60') no-repeat center center/cover;
     display: grid;
-    // background: #0d0d0d;
+    background: #0d0d0d;
     align-items: center;
     top: 0;
     left: 0;
