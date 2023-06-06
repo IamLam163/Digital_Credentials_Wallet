@@ -1,0 +1,36 @@
+{
+  "type": "module",
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "server side for Digital Credentials Wallet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IamLam163/Digital_Credentials_Wallet.git"
+  },
+  "author": "Dev_Lam https://github.com/IamLam163",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IamLam163/Digital_Credentials_Wallet/issues"
+  },
+  "homepage": "https://github.com/IamLam163/Digital_Credentials_Wallet#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.2",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-semistandard": "^17.0.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}
