@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
 import { UserContextProvider } from './context/userContext';
 import Dashboard from './pages/Dashboard';
+import Passwordreset from './pages/passwordReset';
 
 axios.defaults.baseURL = 'http://localhost:7000';
 axios.defaults.withCredentials = true
@@ -23,6 +24,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/forgot-password' element={<Passwordreset />} />
         </Routes>
       </Router>
     </UserContextProvider>
