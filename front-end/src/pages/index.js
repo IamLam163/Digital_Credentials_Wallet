@@ -14,9 +14,11 @@ const Home = () => {
     setIsOpen(!isOpen)
   }
   return (
+    //reverse the changes
+    //side is  masking the navbar
     <>
-      <Sidebar isOpen={isOpen} toggle={toggle} />
-      <Navbar/>
+    <Navbar/>
+    {/*<Sidebar/>*/}
       <HeroSection />
       <InfoSection {...HomeObjOne} />
       <InfoSection {...HomeObjTwo} />
