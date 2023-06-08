@@ -1,7 +1,8 @@
 import React from 'react'
 import { FaBars } from 'react-icons/fa'
 import { IconContext } from 'react-icons/lib'
-// import {animateScroll as scroll} from 'react-scroll'
+import { useState, useEffect } from 'react';
+import {animateScroll as scroll} from 'react-scroll'
 import {Nav,
   NavbarContainer,
   NavLogo,
@@ -12,65 +13,101 @@ import {Nav,
   NavBtn,
   NavBtnLink
 } from './NavbarElements';
+import ResponsiveAppBar from '../../pages/sidebar';
 import ApiIcon from '@mui/icons-material/Api';
 
-function Navbar({ toggle }) {
+const Navbar = ({ toggle }) => {
+  const [scrollNav, setScrollNav] = useState(false)
+
+  //change the color of the navbar when scrolling
+  const changeNav = () => {
+    if(window.scrollY >= 80) {
+      setScrollNav(false)
+    } else {
+      setScrollNav(true)
+    }
+  }
+  //scroll to the top of the page when clicking the logo
+  useEffect(() => {
+    window.addEventListener('scroll', changeNav)
+  }, [])
+  const toggleHome = () => {
+    scroll.scrollToTop()
+  }
   return (
     <>
-      <IconContext.Provider value={{ color: '#fff' }}>
-        <Nav>
-            <NavbarContainer>
-                <NavLogo>
-                <ApiIcon sx={{ fontSize: 40 }} />
-                <p style={{ fontSize: 12}}>Digital Wallet</p>
-                </NavLogo>
-                <MobileIcon >
-                  <FaBars onClick={toggle}/>
-                </MobileIcon>
-                <NavMenu>
-                  <NavItem>
-                    <NavLinks to='about' smooth={true} duration={500} spy={true} exact='true' offset={-80}>About Us</NavLinks>
-                </NavItem>
-                <NavItem>
-                  <NavLinks to='discover' 
-                  smooth={true}
-                   duration={500}
-                   spy={true} 
-                   exact='true' 
-                   offset={-80}
-                   activeClass='active'
-                   >Discover</NavLinks>
-                </NavItem>
-                <NavItem>
-                  <NavLinks to='contact Us' 
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact='true'
-                  offset={-80}
-                  activeClass='active'
-                >Contact Us</NavLinks>
-              </NavItem>
-              <NavItem>
-                <NavLinks to='Services'
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                  exact='true'
-                  offset={-80}
-                  activeClass='active'
-                > Services
-                </NavLinks>
-              </NavItem>
-              <NavBtn>
-                <NavBtnLink to="/login">Log In</NavBtnLink>
-              </NavBtn>
-            </NavMenu>
-          </NavbarContainer>
-        </Nav>
+    <IconContext.Provider value={{ color: '#fff' }}>
+      <Nav scrollNav={scrollNav}>
+        <NavbarContainer>
+          <NavLogo to="/" onClick={toggleHome}>
+        {/*<ResponsiveAppBar/>*/}
+            <ApiIcon sx={{ fontSize: 40 }} />
+            <p style={{ fontSize: 12 }}>Digital Wallet</p>
+          </NavLogo>
+          <MobileIcon onClick={toggle}>
+            <FaBars />
+          </MobileIcon>
+          <NavMenu>
+            <NavItem>
+              <NavLinks to='about'
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+                activeClass="active"
+                >
+                About Us
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="discover"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+                activeClass="active"
+              >
+                Discover
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="contact Us"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+                activeClass="active"
+              >
+                Contact Us
+              </NavLinks>
+            </NavItem>
+            <NavItem>
+              <NavLinks
+                to="Services"
+                smooth={true}
+                duration={500}
+                spy={true}
+                exact="true"
+                offset={-80}
+                activeClass="active"
+              >
+                Services
+              </NavLinks>
+            </NavItem>
+            <NavBtn>
+            <NavBtnLink to="/login">Log In</NavBtnLink>
+            </NavBtn>
+          </NavMenu>
+        </NavbarContainer>
+      </Nav>
       </IconContext.Provider>
     </>
-  )
-}
+  );
+};
 
 export default Navbar;
