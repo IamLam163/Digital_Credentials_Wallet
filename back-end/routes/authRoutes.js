@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { forgotPassword, getProfile, loginUser, registerUser, test, verifyEmail } from '../controllers/authController.js';
+import { forgotPassword, getProfile, loginUser, registerUser, resetPassword, test, verifyEmail } from '../controllers/authController.js';
+import { isResetTokenValid } from '../helpers/auth.js';
 
 const router = express.Router();
 
@@ -16,6 +17,7 @@ router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.post('/verify-email', verifyEmail);
 router.post('/forgot-password', forgotPassword);
+router.post('/reset-password', isResetTokenValid, resetPassword);
 router.get('/profile', getProfile);
 
 export default router;
