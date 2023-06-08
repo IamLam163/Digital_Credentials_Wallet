@@ -1,44 +1,46 @@
 import React from 'react';
-import { SidebarContainer,
-     Icon, 
-     CloseIcon, 
-     SideBtnWrap, 
-     SidebarWrapper, 
-     SidebarMenu, 
-     SidebarLink, 
-     SidebarRoute
-    } from './SidebarElements';
-// import {animateScroll as scroll} from 'react-scroll';
-// import { Link as LinkR } from 'react-router-dom';
+import {
+  SidebarContainer,
+  Icon,
+  CloseIcon,
+  SideBtnWrap,
+  SidebarWrapper,
+  SidebarMenu,
+  SidebarLink,
+  SidebarRoute,
+} from './SidebarElements';
 
 
 function Sidebar({ isOpen, toggle }) {
   return (
-    <SidebarContainer isOpen={isOpen} onClick={toggle}>
-        <Icon onClick={toggle}>
-            <CloseIcon />
-        </Icon>
-        <SidebarWrapper>
+    ///reverse changes made to the sidebar
+    <SidebarContainer >
+      <Icon>
+        <CloseIcon />
+      </Icon>
+      <SidebarWrapper>
         <SidebarMenu>
           <SidebarLink to="#about" onClick={toggle}>
             About
           </SidebarLink>
-             <SidebarLink to="#discover" onClick={toggle}>
+          <SidebarLink to="#discover" onClick={toggle}>
             Discover
           </SidebarLink>
-             <SidebarLink to="#Services" onClick={toggle}>
+          <SidebarLink to="#Services" onClick={toggle}>
             Services
           </SidebarLink>
-             <SidebarLink to="#signup" onClick={toggle}>
+          <SidebarLink to="#signup" onClick={toggle}>
             Sign up
           </SidebarLink>
         </SidebarMenu>
         <SideBtnWrap>
-            <SidebarRoute to="/signin" onClick={toggle}>Sign In</SidebarRoute>
+          <SidebarRoute to="/signin" onClick={toggle}>
+            Sign In
+          </SidebarRoute>
         </SideBtnWrap>
-        </SidebarWrapper>
+      </SidebarWrapper>
     </SidebarContainer>
-  )
+  );
 }
 
 export default Sidebar;

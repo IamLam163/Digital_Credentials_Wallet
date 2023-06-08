@@ -13,21 +13,21 @@ const Footer = () => {
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle>About Us</FooterLinkTitle>
-                            <FooterLink to='/signin'>How it works</FooterLink>
-                            <FooterLink to='/signin'>Developers</FooterLink>
-                            <FooterLink to='/signin'>Careers</FooterLink>
+                            <FooterLink to='/google.com'>How it works</FooterLink>
+                            <FooterLink to='/google.com'>Developers</FooterLink>
+                            <FooterLink to='/google.com'>Careers</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Vedios</FooterLinkTitle>
-                            <FooterLink to='/signin'>How it works</FooterLink>
-                            <FooterLink to='/signin'>Testimonials</FooterLink>
+                            <FooterLink to='/google.com'>How it works</FooterLink>
+                            <FooterLink to='/google.com'>Testimonials</FooterLink>
                         </FooterLinkItems>
                     </FooterLinksWrapper>
                     <FooterLinksWrapper>
                         <FooterLinkItems>
                             <FooterLinkTitle>Contact Us</FooterLinkTitle>
-                            <FooterLink to='/signin'>Check out our socials</FooterLink>
-                            <FooterLink to='/signin'>Link With us with Github</FooterLink>
+                            <FooterLink to='/google.com'>Check out our socials</FooterLink>
+                            <FooterLink to='/google.com'>Link With us with Github</FooterLink>
                         </FooterLinkItems>
                         <FooterLinkItems>
                             <FooterLinkTitle>Social Media</FooterLinkTitle>
@@ -40,7 +40,7 @@ const Footer = () => {
                 </FooterLinksContainer>
                 <SocialMedia>
                     <SocialMediaWrap>
-                        <SocialLogo to='/' onClick={toggleHome}>
+                        <SocialLogo onClick={toggleHome}>
                             Wallet
                         </SocialLogo>
                         <WebsiteRights>Wallet © {new Date().getFullYear()} All rights reserved.</WebsiteRights>
