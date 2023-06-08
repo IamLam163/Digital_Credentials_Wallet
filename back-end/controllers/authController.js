@@ -1,8 +1,9 @@
 import User from "../models/user.js";
-import { hashPassword, comparePassword, hashToken } from "../helpers/auth.js";
+import { hashPassword, comparePassword, hashToken, compareToken } from "../helpers/auth.js";
 import jwt from 'jsonwebtoken';
-import { generateOTP } from "../helpers/email.js";
+import { generateEmailTemplate, generateOTP, mailTransport, plainEmailTemplate } from "../helpers/email.js";
 import verificationToken from "../models/verificationToken.js";
+import { isValidObjectId } from "mongoose";
 
 export const test = (req, res) => {
   res.json('test is working');
@@ -54,6 +55,13 @@ export const registerUser = async (req, res) => {
     });
     await verifyToken.save();
 
+    mailTransport().sendMail({
+      from: 'digitalcredentialswallet@email.com',
+      to: user.email,
+      subject: 'Quick Action: Verify your email address',
+      html: generateEmailTemplate(OTP),
+    })
+
     return res.json({ user })
   } catch (error) {
     console.log(error.toString());
@@ -99,6 +107,73 @@ export const loginUser = async (req, res) => {
     console.log(error.toString());
   }
 }
+
+export const verifyEmail = async (req, res) => {
+  const { userId, otp } = req.body
+  if (!userId || !otp) {
+    return res.json({
+      error: 'Invalid request! Missing Parameters!'
+    });
+  }
+  if (!isValidObjectId(userId)) {
+    return res.json({
+      error: 'User not Found! Invalid User ID'
+    })
+  }
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.json({
+      error: 'No User Found!'
+    });
+  }
+  if (user.verified) {
+    return res.json({
+      error: 'This account is already verified!'
+    });
+  }
+
+  //checks/validates current token with the token assigned to the user in database
+  //current token = validtoken while token in (validtoken.token) is token in database
+  //validtoken matches token with a user
+  const validtoken = await verificationToken.findOne({ owner: user._id })
+  if (!validtoken) {
+    return res.json({
+      error: 'Sorry Token does not Match any Existing User!'
+    })
+  }
+  //compares matched token with hashed token
+  const match = await compareToken(otp, validtoken.token)
+
+  //if otp and token don't match, token is Invalid
+  if (!match) {
+    return res.json({
+      error: 'Invalid OTP! Please provide a valid OTP'
+    })
+  }
+
+  //if tokens match verify user and delete the token
+  if (match) {
+    user.verified = true;
+    await verificationToken.findByIdAndDelete(validtoken._id);
+    await user.save()
+  }
+  mailTransport().sendMail({
+    from: 'digitalcredentialswallet@email.com',
+    to: user.email,
+    subject: 'Quick Action: Verify your email address',
+    html: plainEmailTemplate(
+      'Email verified Successfully',
+      'Thanks for using our Service'
+    ),
+  })
+  res.json({
+    success: true,
+    message: 'Email Successfully Verified!',
+    user: { name: user.name, email: user.email, id: user._id }
+  })
+
+}
+
 
 export const forgotPassword = async (req, res) => {
   try {

@@ -36,6 +36,13 @@ export const hashToken = (token) => {
   });
 }
 
-export const compareToken = (token, hashed) => {
-  return bcrypt.compare(token, hashed);
-}
+export const compareToken = async (token, hashed) => {
+  try {
+    const match = await bcrypt.compare(token, hashed);
+    return match;
+  } catch (error) {
+    console.log(error.toString());
+    return false;
+  }
+};
+
