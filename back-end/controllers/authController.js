@@ -208,7 +208,6 @@ export const forgotPassword = async (req, res) => {
       `http://localhost:3000/reset-password?token=${token}&id=${user._id}`),
   });
 
-
   res.json({
     success: true,
     message: 'Password reset link has been sent to your email address.'
