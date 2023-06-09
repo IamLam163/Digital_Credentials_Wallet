@@ -40,7 +40,6 @@ const Navbar = ({ toggle }) => {
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
-        {/*<ResponsiveAppBar/>*/}
             <ApiIcon sx={{ fontSize: 40 }} />
             <p style={{ fontSize: 12 }}>Digital Wallet</p>
           </NavLogo>
