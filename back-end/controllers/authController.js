@@ -224,8 +224,9 @@ export const resetPassword = async (req, res) => {
       error: 'User Not Found!'
     })
   }
+  const hashedPassword = await hashPassword(password)
 
-  const isSamePassword = await user.comparePassword(password, user.password)
+  const isSamePassword = await comparePassword(password, user.password)
   if (isSamePassword) {
     return res.json({
       error: 'New password cannot be the same!'
@@ -236,7 +237,7 @@ export const resetPassword = async (req, res) => {
       error: 'Password Cannot be less than Six Characters!'
     })
   }
-  user.password = password
+  user.password = hashedPassword
   await user.save()
 
   await resetToken.findOneAndDelete({ owner: user._id })

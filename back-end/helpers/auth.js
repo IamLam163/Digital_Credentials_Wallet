@@ -53,16 +53,19 @@ export const compareToken = async (token, hashed) => {
 
 
 //generate token for password reset
+// generate token for password reset
 export const createRandomBytes = () => new Promise((resolve, reject) => {
   crypto.randomBytes(30, (err, buf) => {
     if (err) {
       reject(err);
     }
     const token = buf.toString('hex');
-    hashToken(token);
+    const hashedToken = hashToken(token);
+    new resetToken({ owner: User._id, token: hashedToken });
     resolve(token);
   });
 });
+
 
 
 //check if reset token is valid
@@ -94,7 +97,7 @@ export const isResetTokenValid = async (req, res, next) => {
   console.log(token)
   console.log(findmyToken.token)
 
-  const isValid = await compareToken(token.trim(), findmyToken.token.trim())
+  const isValid = token.trim() === findmyToken.token.trim()
   if (!isValid) {
     return res.json({
       error: 'Reset Token is not valid!'
