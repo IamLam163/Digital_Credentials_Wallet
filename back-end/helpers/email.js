@@ -147,7 +147,8 @@ export const resetSuccessfulTemplate = (heading, message) => {
       <h1 style="background: #f6f6f6; padding: 10px; text-align:
       center; color: #272727;">${heading}</h1>
       <p style="width: 20px; margin 0 auto; font-weight: bold; text-align: center;
-      background: #f6f6f6; border-radius: 5px; font-size: 15px;">${message}</p>
+      background: #f6f6f6; border-radius: 5px; font-size: 15px;"><h1>Digital Credentials Wallet</h1></p>
+      <p>${message}</p>
       </div>
     </div>
   </body>

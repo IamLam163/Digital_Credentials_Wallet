@@ -94,8 +94,6 @@ export const isResetTokenValid = async (req, res, next) => {
       error: 'Token Not Found!'
     })
   }
-  console.log(token)
-  console.log(findmyToken.token)
 
   const isValid = token.trim() === findmyToken.token.trim()
   if (!isValid) {
