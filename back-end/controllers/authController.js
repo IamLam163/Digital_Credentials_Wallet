@@ -1,7 +1,10 @@
 import User from "../models/user.js";
-import { hashPassword, comparePassword } from "../helpers/auth.js";
+import { hashPassword, comparePassword, hashToken, compareToken, createRandomBytes } from "../helpers/auth.js";
 import jwt from 'jsonwebtoken';
-
+import { generateEmailTemplate, generateOTP, generatePasswordResetTemplate, mailTransport, plainEmailTemplate, resetSuccessfulTemplate } from "../helpers/email.js";
+import verificationToken from "../models/verificationToken.js";
+import { isValidObjectId } from "mongoose";
+import resetToken from "../models/resetToken.js";
 
 export const test = (req, res) => {
   res.json('test is working');
@@ -13,14 +16,22 @@ export const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     if (!name) {
       return res.json({
-        error: 'name is required!'
+        error: 'Name is a required field! Please enter your name'
       })
     };
-    if (!password || password.length < 6) {
+    if (!password) {
       return res.json({
-        error: 'Password is required and should be at least 6 characters long!'
+        error: 'Password is a required field! Please input your password'
       })
     };
+    if (!email) {
+      return res.json({
+        error: 'Email is a required field! Please input your email'
+      })
+    }
+    if (password.length < 6) {
+      return res.json({ error: 'Password should be at least 6 characters long!' });
+    }
     let existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.json({
@@ -29,11 +40,29 @@ export const registerUser = async (req, res) => {
     };
 
     const hashedPassword = await hashPassword(password)
+
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
+    });
+
+    const OTP = generateOTP();
+    const hashedToken = await hashToken(OTP)
+
+    const verifyToken = new verificationToken({
+      owner: user._id,
+      token: hashedToken,
+    });
+    await verifyToken.save();
+
+    mailTransport().sendMail({
+      from: 'digitalcredentialswallet@email.com',
+      to: user.email,
+      subject: 'Quick Action: Verify your email address',
+      html: generateEmailTemplate(OTP),
     })
+
     return res.json({ user })
   } catch (error) {
     console.log(error.toString());
@@ -42,14 +71,26 @@ export const registerUser = async (req, res) => {
 
 
 export const loginUser = async (req, res) => {
+
   try {
     const { email, password } = req.body;
+
+    if (!email) {
+      return res.json({
+        error: 'Email field cannot be empty! Please input a valid email'
+      })
+    }
 
     const user = await User.findOne({ email });
     if (!user) {
       return res.json({
         error: 'No User Found!'
       });
+    }
+    if (!password) {
+      return res.json({
+        error: 'Password cannot be empty! Please input your password!'
+      })
     }
 
     const match = await comparePassword(password, user.password)
@@ -68,6 +109,157 @@ export const loginUser = async (req, res) => {
   }
 }
 
+
+export const verifyEmail = async (req, res) => {
+  const { userId, otp } = req.body
+  if (!userId || !otp) {
+    return res.json({
+      error: 'Invalid request! Missing Parameters!'
+    });
+  }
+  if (!isValidObjectId(userId)) {
+    return res.json({
+      error: 'User not Found! Invalid User ID'
+    })
+  }
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.json({
+      error: 'No User Found!'
+    });
+  }
+  if (user.verified) {
+    return res.json({
+      error: 'This account is already verified!'
+    });
+  }
+
+  //checks/validates current token with the token assigned to the user in database
+  //current token = validtoken while token in (validtoken.token) is token in database
+  //validtoken matches token with a user
+  const validtoken = await verificationToken.findOne({ owner: user._id })
+  if (!validtoken) {
+    return res.json({
+      error: 'Sorry Token does not Match any Existing User!'
+    })
+  }
+  //compares matched token with hashed token
+  const match = await compareToken(otp, validtoken.token)
+
+  //if otp and token don't match, token is Invalid
+  if (!match) {
+    return res.json({
+      error: 'Invalid OTP! Please provide a valid OTP'
+    })
+  }
+
+  //if tokens match verify user and delete the token
+  if (match) {
+    user.verified = true;
+    await verificationToken.findByIdAndDelete(validtoken._id);
+    await user.save()
+  }
+  mailTransport().sendMail({
+    from: 'digitalcredentialswallet@email.com',
+    to: user.email,
+    subject: 'Quick Action: Verify your email address',
+    html: plainEmailTemplate(
+      'Email verified Successfully',
+      'Thanks for using our Service'
+    ),
+  })
+  res.json({
+    success: true,
+    message: 'Email Successfully Verified!',
+    user: { name: user.name, email: user.email, id: user._id }
+  })
+
+}
+
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.json({
+      error: 'Please Provide a Valid Email!'
+    });
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.json({
+      error: 'No User Found with this email!'
+    });
+  }
+  const findtoken = await resetToken.findOne({ owner: user._id });
+  if (findtoken) {
+    return res.json({
+      error: 'You can only generate One token per hour!'
+    });
+  }
+  // create new token
+  const token = await createRandomBytes();
+  const newresetToken = new resetToken({ owner: user._id, token });
+  await newresetToken.save();
+
+  mailTransport().sendMail({
+    from: 'digitalcredentialswallet@email.com',
+    to: user.email,
+    subject: 'Quick Action: Password Reset',
+    html: generatePasswordResetTemplate(
+      `http://localhost:3000/reset-password?token=${token}&id=${user._id}`),
+  });
+
+  res.json({
+    success: true,
+    message: 'Password reset link has been sent to your email address.'
+  });
+
+}
+
+
+export const resetPassword = async (req, res) => {
+  const { password } = req.body;
+  const user = await User.findById(req.user._id);
+  if (!user) {
+    return res.json({
+      error: 'User Not Found!'
+    })
+  }
+  const hashedPassword = await hashPassword(password)
+
+  const isSamePassword = await comparePassword(password, user.password)
+  if (isSamePassword) {
+    return res.json({
+      error: 'New password cannot be the same!'
+    })
+  }
+  if (password.length < 6) {
+    return res.json({
+      error: 'Password Cannot be less than Six Characters!'
+    })
+  }
+  user.password = hashedPassword
+  await user.save()
+
+  await resetToken.findOneAndDelete({ owner: user._id })
+
+  mailTransport().sendMail({
+    from: 'digitalcredentialswallet@email.com',
+    to: user.email,
+    subject: 'Password Reset Successful!',
+    html: resetSuccessfulTemplate(
+      'Password Reset was Successful',
+      'You can now Login with New Password!'
+    ),
+  });
+
+
+  res.json({
+    success: true,
+    message: 'Your Password reset was Successful'
+  });
+
+}
 
 export const getProfile = (req, res) => {
   const { token } = req.cookies;
