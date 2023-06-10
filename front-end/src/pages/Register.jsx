@@ -1,4 +1,5 @@
 import React from 'react'
+import './Register.css'
 import { useState } from 'react'
 import axios from 'axios'
 import toast from 'react-hot-toast';
@@ -35,24 +36,25 @@ export default function Register() {
 
 
   return (
-    <div>
-      <form onSubmit={registerUser}>
+    <div className="register-container">
+      <h1 className="register-header">Sign Up</h1>
+      <form onSubmit={registerUser} className="signin-form">
         <label>Name</label>
         <input type='text' name='username'
           value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })}
-          placeholder='Enter your Name' />
+          placeholder='Enter your Name' className="register-input" />
 
         <label>Email</label>
         <input type='text' name='email'
           value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })}
-          placeholder='Enter your Email address' />
+          placeholder='Enter your Email address' className="register-input" />
 
         <label>Password</label>
         <input type='text' name='password'
           value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })}
-          placeholder='Enter your password' />
+          placeholder='Enter your password' className="register-input" />
 
-        <button type='submit'>Submit</button>
+        <button type='submit' className="register-button">Submit</button>
       </form>
     </div>
   )

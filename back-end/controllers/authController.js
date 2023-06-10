@@ -109,6 +109,11 @@ export const loginUser = async (req, res) => {
   }
 }
 
+export const logoutUser = (req, res) => {
+  res.clearCookie('token').json({
+    message: 'Logged Out Successfully!'
+  })
+}
 
 export const verifyEmail = async (req, res) => {
   const { userId, otp } = req.body
