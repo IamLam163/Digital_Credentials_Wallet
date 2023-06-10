@@ -1,54 +1,71 @@
-import './Login.css'
-import React from 'react'
-import { useState } from 'react'
-import axios from 'axios'
-import toast from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import './Login.css';
+import React, { useContext, useState } from 'react';
+//import { UserContext } from '../context/userContext';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const navigate = useNavigate()
+  //const { loginUser } = useContext(UserContext);
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: '',
     password: '',
-  })
+  });
 
+  const handleInputChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
-  const loginUser = async (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const { email, password } = data;
+
     try {
-      const { data } = await axios.post('/login', {
-        email, password
-      });
+      const response = await axios.post('/login', { email, password });
+      const { data } = response;
       if (data.error) {
-        toast.error(data.error)
+        toast.error(data.error);
       } else {
-        setData({});
-        toast.success('Login Successful')
+        setData({ email: '', password: '' });
+        toast.success('Login Successful');
+        //loginUser(data);
         navigate('/dashboard');
       }
     } catch (error) {
-      console.log(error.toString());
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="signin-container">
       <h1 className="signin-header">Sign In</h1>
-      <form onSubmit={loginUser} className="signin-form">
+      <form onSubmit={handleSubmit} className="signin-form">
         <label>Email</label>
-        <input type='text' name='email'
-          value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })}
-          placeholder='Enter your Email address' className="signin-input" />
+        <input
+          type="text"
+          name="email"
+          value={data.email}
+          onChange={handleInputChange}
+          placeholder="Enter your Email address"
+          className="signin-input"
+        />
 
         <label>Password</label>
-        <input type='text' name='password'
-          value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })}
-          placeholder='Enter your password' className="signin-input" />
+        <input
+          type="password"
+          name="password"
+          value={data.password}
+          onChange={handleInputChange}
+          placeholder="Enter your password"
+          className="signin-input"
+        />
 
-        <button type='submit' className="signin-button">Login</button>
+        <button type="submit" className="signin-button">
+          Login
+        </button>
       </form>
     </div>
-
-  )
+  );
 }
+
