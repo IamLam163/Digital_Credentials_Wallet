@@ -36,7 +36,7 @@ export default function AddFolderButton() {
    if(currentUser){
       try {
       // console.log({ user })
-      const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: null });
+      const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: currentUser.rootFolder });
       const { data } = response
       console.log('Folder created Successfully:', data.folder);
       setFolderName('');

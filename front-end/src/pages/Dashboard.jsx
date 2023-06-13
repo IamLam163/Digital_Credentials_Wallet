@@ -20,6 +20,7 @@ import { toast } from 'react-hot-toast'
 import { motion } from 'framer-motion';
 import { FaQuestionCircle } from 'react-icons/fa'
 import AddFolderButton from './AddFolderButton'
+import { useFolder } from '../components/hooks/useFolder'
 
 
 function Dashboard() {
@@ -27,6 +28,8 @@ function Dashboard() {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
+    const { folder } = useFolder("64815feaace945dc613fbf7b");
+    console.log(folder);
 
     const handleLogout = async () => {
         const confirmed = window.confirm('Are you sure you want to logout?');
@@ -113,7 +116,7 @@ function Dashboard() {
                 </div>
                 <div className='middle'>
                 <div className='buttonF'>
-                <AddFolderButton />
+                <AddFolderButton currentFolder={folder}/>
                 </div>
                 </div>
                 </div>
