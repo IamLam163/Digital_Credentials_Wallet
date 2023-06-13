@@ -10,6 +10,8 @@ import { UserContextProvider } from './context/userContext';
 import Dashboard from './pages/Dashboard';
 import Passwordreset from './pages/passwordReset';
 import Profile from './pages/Profile';
+import About from './pages/Contact';
+import NotFound from './pages/NotFound'
 
 axios.defaults.baseURL = 'http://localhost:7000';
 axios.defaults.withCredentials = true
@@ -27,6 +29,8 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/forgot-password' element={<Passwordreset />} />
+          <Route path='/about' element={<About />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>
     </UserContextProvider>

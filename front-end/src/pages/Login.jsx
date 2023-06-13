@@ -1,9 +1,10 @@
 import './Login.css';
-import React, { useContext, useState } from 'react';
+import React, {useState } from 'react';
 //import { UserContext } from '../context/userContext';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import photo from '../images/svg-9.svg';
 
 export default function Login() {
   //const { loginUser } = useContext(UserContext);
@@ -38,6 +39,8 @@ export default function Login() {
   };
 
   return (
+    <div className='ouline'>
+    <img src={photo} alt="Logo" className="logo"/>
     <div className="signin-container">
       <h1 className="signin-header">Sign In</h1>
       <form onSubmit={handleSubmit} className="signin-form">
@@ -65,6 +68,7 @@ export default function Login() {
           Login
         </button>
       </form>
+    </div>
     </div>
   );
 }
