@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,17 +11,32 @@ import { UserContext } from '../context/userContext';
 export default function AddFolderButton() {
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState('');
-  //const [user, setUser] = useContext(UserContext);
+  // const user = useContext(UserContext);
+  const[currentUser,setCurrentUser]=useState(null);
+  useEffect(()=>{
+(
+  async()=>{
+    try {
+      const { data } = await axios.get('/profile');
+      setCurrentUser(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)()
+  },[])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     //setFolderName("")
     //setOpen(false);
     // createFolder(folderName) in the data base here
     //const { name } = data;
-    try {
-      console.log({ user })
-      const response = await axios.post('/folder/add', { name: folderName });
+   if(currentUser){
+      try {
+      // console.log({ user })
+      const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: null });
       const { data } = response
       console.log('Folder created Successfully:', data.folder);
       setFolderName('');
@@ -29,8 +44,7 @@ export default function AddFolderButton() {
     } catch (error) {
       console.log(error);
     }
-
-  }
+  }}
 
   const handleOpen = () => {
     setOpen(true);
@@ -75,7 +89,7 @@ export default function AddFolderButton() {
             <Button variant="contained" color="primary" onClick={handleClose} sx={{ fontSize: "12px" }}>
               Close
             </Button>
-            <Button variant="outlined" color="primary" type="submit" sx={{ fontSize: "12px", marginTop: "5px" }} onClick={handleSubmit}>
+            <Button variant="outlined" disabled={currentUser===null} color="primary" type="submit" sx={{ fontSize: "12px", marginTop: "5px" }} onClick={handleSubmit}>
               Add Folder
             </Button>
           </form>
