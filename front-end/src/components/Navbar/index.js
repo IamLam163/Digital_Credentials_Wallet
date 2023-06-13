@@ -13,7 +13,7 @@ import {Nav,
   NavBtn,
   NavBtnLink
 } from './NavbarElements';
-import ResponsiveAppBar from '../../pages/sidebar';
+// import ResponsiveAppBar from '../../pages/sidebar';
 import ApiIcon from '@mui/icons-material/Api';
 
 const Navbar = ({ toggle }) => {
@@ -48,7 +48,7 @@ const Navbar = ({ toggle }) => {
           </MobileIcon>
           <NavMenu>
             <NavItem>
-              <NavLinks to='about'
+              <NavLinks to="about"
                 smooth={true}
                 duration={500}
                 spy={true}

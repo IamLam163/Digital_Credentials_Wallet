@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useContext } from 'react'
 import { UserContext } from '../context/userContext'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-// import Dashboard from '../Home/Dashboard';
 import './Dashboard.css'
-
 import {
     FaUserEdit,
     FaBars,
@@ -19,36 +16,28 @@ import { TiDocumentText } from 'react-icons/ti'
 import { BiLogOutCircle } from 'react-icons/bi'
 import ApiIcon from '@mui/icons-material/Api';
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
+import { motion } from 'framer-motion';
+import { FaQuestionCircle } from 'react-icons/fa'
+import AddFolderButton from './AddFolderButton'
+
 
 function Dashboard() {
-    const { user, setUser, logout } = useContext(UserContext)
-    const [isLoading, setIsLoading] = useState(true);
+    const { user: contextUser, setUser } = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        try {
-            await logout();
-            navigate('/login')
-        } catch (error) {
-            console.log(error)
-        }
-    };
+        const confirmed = window.confirm('Are you sure you want to logout?');
+        if (!confirmed) return;
+        await axios.get('/logout');
+        localStorage.clear();
+        setUser(null);
+        toast.success('Logged Out Successfully');
+        navigate('/login');
+    }
 
-    useEffect(() => {
-        fetchUserData();
-    }, []);
-
-    const fetchUserData = async () => {
-        try {
-            const { data } = await axios.get('/profile');
-            setUser(data);
-            setIsLoading(false); // Set loading state to false when user data is fetched
-        } catch (error) {
-            console.log(error);
-        }
-    };
     const menuItem = [
         {
             path: "/profile",
@@ -76,49 +65,60 @@ function Dashboard() {
             icon: <FiSettings />
         },
         {
+            path: "/about",
+            name: "FAQ",
+            icon: <FaQuestionCircle />
+
+        },
+        {
             path: "/logout",
             name: "Log out",
             icon: <BiLogOutCircle />,
             onClick: handleLogout
         }
     ]
+
     return (
         <>
-            {isLoading ? (
-                <p>Loading...</p> // Render a loading state when data is being fetched
-            ) : (
-                <>
-                    {!!user && <p>Hi {user.name}!</p>}
-                    <div className="container">
-                        <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
-                            <div className="top_section">
-                                <h1 style={{ display: isOpen ? "block" : "none" }} className="logo">
-                                    <ApiIcon sx={{ fontSize: 40 }} />
-                                </h1>
-                                <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
-                                    <FaBars onClick={toggle} />
-                                </div>
-                            </div>
-                            {menuItem.map((item, index) => (
-                                <NavLink
-                                    to={item.path}
-                                    key={index}
-                                    className="link"
-                                    activeClassName="active"
-                                    onClick={item.onClick}
-                                >
-                                    <div className="icon">{item.icon}</div>
-                                    <div style={{ display: isOpen ? "block" : "none" }} className="link_text">
-                                        {item.name}
-                                    </div>
-                                </NavLink>
-                            ))}
+            {!!contextUser && (<p>Welcome back {contextUser.name}!</p>)}
+            <div className="container">
+                <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
+                    <div className="top_section">
+                        <h1 style={{ display: isOpen ? "block" : "none" }}><ApiIcon sx={{ fontSize: 40 }} /></h1>
+                        <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
+                            <FaBars onClick={toggle} />
                         </div>
                     </div>
-                </>
-            )}
+                    {
+                        menuItem.map((item, index) => (
+                          <motion.div
+                          key={index}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.95 }}
+                          transition={{ duration: 0.1 }}
+                          >
+                            <NavLink to={item.path} 
+                            key={index} className="link" 
+                            activeClassName="active" 
+                            onClick={item.onClick}
+                            >
+                                <div className="icon">{item.icon}</div>
+                                <div style={{ display: isOpen ? "block" : "none" }} 
+                                className="link_text">
+                                {item.name}
+                                </div>
+                            </NavLink>
+                            </motion.div>
+                        ))}
+                </div>
+                <div className='middle'>
+                <div className='buttonF'>
+                <AddFolderButton />
+                </div>
+                </div>
+                </div>
         </>
-    );
+    )
 }
 
 export default Dashboard
