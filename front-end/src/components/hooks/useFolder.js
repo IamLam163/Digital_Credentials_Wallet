@@ -53,7 +53,13 @@ export function useFolder(folderId = null, folder = null) {
         //     type: ACTIONS.UPDATE_FOLDER,
         //     payload: { folder: data.folder }
         // })
-        console.log(folder.data);
+        const folder = data.folder;
+        dispatch({
+          type: ACTIONS.UPDATE_FOLDER,
+          payload: { folder: ROOT_FOLDER },
+        });
+        //console.log(state.folder)
+        //console.log(folder);
       })
       .catch(() => {
         dispatch({
@@ -62,6 +68,7 @@ export function useFolder(folderId = null, folder = null) {
         });
       });
   }, [folderId]);
+  //console.log(state.folder)
 
   return state;
 }

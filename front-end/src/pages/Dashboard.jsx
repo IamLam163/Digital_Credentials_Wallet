@@ -94,32 +94,32 @@ function Dashboard() {
                     </div>
                     {
                         menuItem.map((item, index) => (
-                          <motion.div
-                          key={index}
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.95 }}
-                          transition={{ duration: 0.1 }}
-                          >
-                            <NavLink to={item.path} 
-                            key={index} className="link" 
-                            activeClassName="active" 
-                            onClick={item.onClick}
+                            <motion.div
+                                key={index}
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                transition={{ duration: 0.1 }}
                             >
-                                <div className="icon">{item.icon}</div>
-                                <div style={{ display: isOpen ? "block" : "none" }} 
-                                className="link_text">
-                                {item.name}
-                                </div>
-                            </NavLink>
+                                <NavLink to={item.path}
+                                    key={index} className="link"
+                                    activeClassName="active"
+                                    onClick={item.onClick}
+                                >
+                                    <div className="icon">{item.icon}</div>
+                                    <div style={{ display: isOpen ? "block" : "none" }}
+                                        className="link_text">
+                                        {item.name}
+                                    </div>
+                                </NavLink>
                             </motion.div>
                         ))}
                 </div>
                 <div className='middle'>
-                <div className='buttonF'>
-                <AddFolderButton currentFolder={folder}/>
+                    <div className='buttonF'>
+                        <AddFolderButton currentFolder={folder} />
+                    </div>
                 </div>
-                </div>
-                </div>
+            </div>
         </>
     )
 }
