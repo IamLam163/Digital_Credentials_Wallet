@@ -6,10 +6,10 @@ const ObjectId = mongoose.Types.ObjectId;
 export const getAllFolders = async (req, res) => {
   let folders;
   try {
-    folders = await Folder.find().populate('owner');
+    folders = await Folder.find({}).exec();
   } catch (error) {
-    console.log(error.toString());
-    return res.json({ error: error.toString() });
+    console.error(error.toString());
+    return res.json({ error: error });
   }
   if (!folders || folders.length === 0) {
     return res.json({
