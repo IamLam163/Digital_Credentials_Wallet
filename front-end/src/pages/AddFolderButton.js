@@ -8,9 +8,11 @@ import axios from 'axios';
 import { UserContext } from '../context/userContext';
 // import Mongoose from 'mongoose';
 
-export default function AddFolderButton() {
+export default function AddFolderButton({}) {
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState('');
+  // const [folder,setFolder]=useState([]);
+  //folder
   // const user = useContext(UserContext);
   const[currentUser,setCurrentUser]=useState(null);
   useEffect(()=>{
@@ -39,6 +41,7 @@ export default function AddFolderButton() {
       const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: currentUser.rootFolder });
       const { data } = response
       console.log('Folder created Successfully:', data.folder);
+      // setFolders(data?.folder);
       setFolderName('');
       setOpen(false);
     } catch (error) {

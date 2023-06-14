@@ -46,29 +46,28 @@ export function useFolder(folderId = null, folder = null) {
         payload: { folder: ROOT_FOLDER },
       });
     }
+
     axios
       .get(`/folder/${folderId}`)
       .then(({ data }) => {
-        // dispatch({
-        //     type: ACTIONS.UPDATE_FOLDER,
-        //     payload: { folder: data.folder }
-        // })
         const folder = data.folder;
-        dispatch({
-          type: ACTIONS.UPDATE_FOLDER,
-          payload: { folder: ROOT_FOLDER },
+        dispatch({ type: ACTIONS.UPDATE_FOLDER, payload: { folder: ROOT_FOLDER } });
+
+        folder.childFolders.forEach((childFolder) => {
+          dispatch({ type: ACTIONS.UPDATE_FOLDER, payload: { folder: childFolder } });
+          console.log(childFolder);
         });
-        //console.log(state.folder)
-        //console.log(folder);
       })
       .catch(() => {
-        dispatch({
-          type: ACTIONS.UPDATE_FOLDER,
-          payload: { folder: ROOT_FOLDER },
-        });
+        dispatch({ type: ACTIONS.UPDATE_FOLDER, payload: { folder: ROOT_FOLDER } });
       });
   }, [folderId]);
-  //console.log(state.folder)
+
+  // useEffect(() => {
+  //   // data = { folderId, folder };
+  //   // where("parentId", "==", folderId)
+  //   //   .get()
+  // }, [folderId]);
 
   return state;
 }

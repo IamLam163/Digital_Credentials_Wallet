@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext } from 'react'
 import { UserContext } from '../context/userContext'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Dashboard.css'
 import {
@@ -13,7 +13,7 @@ import {
 import { NavLink } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi'
 import { TiDocumentText } from 'react-icons/ti'
-import { BiLogOutCircle } from 'react-icons/bi'
+import { BiLogOutCircle} from 'react-icons/bi'
 import ApiIcon from '@mui/icons-material/Api';
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
@@ -21,16 +21,31 @@ import { motion } from 'framer-motion';
 import { FaQuestionCircle } from 'react-icons/fa'
 import AddFolderButton from './AddFolderButton'
 import { useFolder } from '../components/hooks/useFolder'
-
+import Folder from './Folder'
+// import { BiSolidFolder } from 'react-icons/bi'
+import { BsFolder } from 'react-icons/bs'
 
 function Dashboard() {
     const { user: contextUser, setUser } = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
-    const { folder } = useFolder("64815feaace945dc613fbf7b");
+    const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");
     console.log(folder);
-
+    const [folders, setFolders] = useState([]);
+//fetch all folders
+useEffect(() => {
+    (
+        async () => {
+            try {
+                const { data } = await axios.get('http://localhost:7000/folder/all');
+                setFolders(data.folders);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    )()
+},[])
     const handleLogout = async () => {
         const confirmed = window.confirm('Are you sure you want to logout?');
         if (!confirmed) return;
@@ -116,8 +131,18 @@ function Dashboard() {
                 </div>
                 <div className='middle'>
                     <div className='buttonF'>
-                        <AddFolderButton currentFolder={folder} />
+                    <AddFolderButton currentFolder={folder}  />
+                    <div style={{ display: 'flex', alignItems: 'center' ,flexWrap:'wrap'}}>
+                    {
+                    folders && folders.map(childFolder => (
+                        <div key={childFolder.id} style={{alignItems: 'center'}}>
+                        <BsFolder style={{ fontSize: '40'}}/>
+                        {childFolder.name}
+                        </div>
+                        ))}
                     </div>
+                    
+                </div>
                 </div>
             </div>
         </>
