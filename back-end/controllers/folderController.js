@@ -81,3 +81,24 @@ export const getFolderById = async (req, res) => {
     return res.json({ error: 'Error getting folder' });
   }
 };
+
+
+export const getUserFolder = async (req, res) => {
+  const userId = req.params.id;
+  const user = await User.findById(userId);
+  console.log(user)
+  try {
+    const folder = await Folder.findOne({ owner: user._id });
+    if (!folder) {
+      return res.json({
+        error: 'Folder has no owner'
+      })
+    }
+    return res.json({ folder });
+  } catch (error) {
+    console.log(error);
+    return res.json({
+      error: 'Error getting folder for the user'
+    })
+  }
+}
