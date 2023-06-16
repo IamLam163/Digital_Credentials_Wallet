@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import router from './routes/authRoutes.js';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
+import folderRouter from './routes/folder-routes.js';
 
 dotenv.config()
 
@@ -34,7 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use('/', router);
-
+app.use('/folder', folderRouter);
 
 // server connection
 app.listen(port, () =>
