@@ -14,7 +14,7 @@ import { NavLink } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi'
 import { TiDocumentText } from 'react-icons/ti'
 import { BiLogOutCircle } from 'react-icons/bi'
-import ApiIcon from '@mui/icons-material/Api';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { motion } from 'framer-motion';
@@ -22,32 +22,39 @@ import { FaQuestionCircle } from 'react-icons/fa'
 import AddFolderButton from './AddFolderButton'
 import { useFolder } from '../components/hooks/useFolder'
 import Folder from './Folder'
+// import { useContext } from 'react';
+// import { UserContext } from '../context/userContext';
 // import { BiSolidFolder } from 'react-icons/bi'
+
 import { BsFolder } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
     const { user: contextUser, setUser } = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
+      const[currentUser,setCurrentUser]=useState(null);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
     const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");
-    console.log(folder);
+    // console.log(folder);
     const [folders, setFolders] = useState([]);
+    const { user } = useContext(UserContext);
     //fetch all folders
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const id = contextUser && contextUser.id
-                    console.log({ id })
-                    const { data } = await axios.get(`/folder/user/${id}`);
-                    setFolders(data.folders);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        )()
-    }, [])
+      useEffect(()=>{
+(
+  async()=>{
+    try {
+      const { data } = await axios.get('/profile');
+      setCurrentUser(data);
+      let  res  = await axios.get(`/folder/user/${data?.id}`);
+        setFolders(res.data.folder);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+)()
+  },[])
+   
     const handleLogout = async () => {
         const confirmed = window.confirm('Are you sure you want to logout?');
         if (!confirmed) return;
@@ -104,7 +111,7 @@ function Dashboard() {
             <div className="container">
                 <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
                     <div className="top_section">
-                        <h1 style={{ display: isOpen ? "block" : "none" }}><ApiIcon sx={{ fontSize: 40 }} /></h1>
+                        <h1 style={{ display: isOpen ? "block" : "none" }}><AccountBalanceWalletIcon sx={{ fontSize: 40 }} /></h1>
                         <div style={{ marginLeft: isOpen ? "50px" : "0px" }} className="bars">
                             <FaBars onClick={toggle} />
                         </div>
@@ -134,16 +141,20 @@ function Dashboard() {
                 <div className='middle'>
                     <div className='buttonF'>
                         <AddFolderButton currentFolder={folder} />
-                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <Link to='/upload'>
+                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
                             {
                                 folders && folders.map(childFolder => (
                                     <div key={childFolder.id} style={{ alignItems: 'center' }}>
-                                        <BsFolder style={{ fontSize: '40' }} />
+                                    <BsFolder style={{ fontSize: '40', color:"white"}} />
+                                        <p style={{ marginTop: "10px", color: "white"}}>
                                         {childFolder.name}
+                                        </p>
+                                        
                                     </div>
                                 ))}
                         </div>
-
+                         </Link>
                     </div>
                 </div>
             </div>
