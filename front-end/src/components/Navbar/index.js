@@ -14,7 +14,7 @@ import {Nav,
   NavBtnLink
 } from './NavbarElements';
 // import ResponsiveAppBar from '../../pages/sidebar';
-import ApiIcon from '@mui/icons-material/Api';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 
 const Navbar = ({ toggle }) => {
   const [scrollNav, setScrollNav] = useState(false)
@@ -40,7 +40,7 @@ const Navbar = ({ toggle }) => {
       <Nav scrollNav={scrollNav}>
         <NavbarContainer>
           <NavLogo to="/" onClick={toggleHome}>
-            <ApiIcon sx={{ fontSize: 40 }} />
+            <AccountBalanceWalletIcon sx={{ fontSize: 40 }} />
             <p style={{ fontSize: 12 }}>Digital Wallet</p>
           </NavLogo>
           <MobileIcon onClick={toggle}>

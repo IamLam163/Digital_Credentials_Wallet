@@ -88,7 +88,7 @@ export const getUserFolder = async (req, res) => {
   const user = await User.findById(userId);
   console.log(user)
   try {
-    const folder = await Folder.findOne({ owner: user._id });
+    const folder = await Folder.find({ owner: user._id });
     if (!folder) {
       return res.json({
         error: 'Folder has no owner'

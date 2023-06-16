@@ -12,7 +12,7 @@ import {
   ArrowRight,
 } from './HeroElements';
 import { Button } from '../ButtonElement';
-import ApiIcon from '@mui/icons-material/Api';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 const HeroSection = () => {
   const [hover, setHover] = useState(false);
 
@@ -26,7 +26,7 @@ const HeroSection = () => {
           <VideoBg autoPlay loop muted src={Video} type="video/mp4" />
         </HeroBg>
         <HeroContent>
-          <HeroH1>Digital Wallet <ApiIcon sx={{ fontSize: 50, marginTop: '10px' }} /> </HeroH1>
+          <HeroH1>Digital Wallet <AccountBalanceWalletIcon sx={{ fontSize: 45, marginTop: '15px' }} /> </HeroH1>
           <HeroP>
             No more worries about where to keep your documents. <span style={{ color: '#01BF71'}}>Keep all of
             them safe and secure with us. </span>We are here to help you keep your
