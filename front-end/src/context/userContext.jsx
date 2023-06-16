@@ -6,6 +6,7 @@ export const UserContext = createContext({})
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     fetchUserData();
@@ -15,8 +16,10 @@ export function UserContextProvider({ children }) {
     try {
       const { data } = await axios.get('/profile');
       setUser(data);
+      setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
+      setIsLoggedIn(false);
     }
   };
 
@@ -29,6 +32,7 @@ export function UserContextProvider({ children }) {
       // Clear local storage
       localStorage.clear();
       setUser(null);
+      setIsLoggedIn(false);
       toast.success('Logged Out Successfully');
     } catch (error) {
       console.log(error);
@@ -40,17 +44,20 @@ export function UserContextProvider({ children }) {
       const { data } = await axios.post('/login', { email, password });
       if (data.error) {
         toast.error(data.error);
+        setIsLoggedIn(false);
       } else {
         await fetchUserData();
+        setIsLoggedIn(true);
         toast.success('Login Successful');
       }
     } catch (error) {
       console.log(error.toString());
+      setIsLoggedIn(false);
     }
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, logout, loginUser }}>
+    <UserContext.Provider value={{ user, setUser, isLoggedIn, logout, loginUser }}>
       {children}
     </UserContext.Provider>
   );
