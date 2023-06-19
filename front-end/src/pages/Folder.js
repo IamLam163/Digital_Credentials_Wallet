@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 
 function Folder() {
-  const { folder } = useFolder("6489b2187e46e11301c3eac3");
+  const { folder } = useFolder('648faee62f6c7a4104ad5ea1');
   const [folders, setFolders] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const state = useFolder()
+  console.log(state)
   //fetch all folders
   useEffect(() => {
     (
@@ -32,20 +34,20 @@ function Folder() {
       <div className='middle'>
         <div className='buttonF'>
           <AddFolderButton currentFolder={folder} />
-          <Link to='/upload'>
-            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
-              {
-                folders && folders.map(childFolder => (
-                  <div key={childFolder.id} style={{ alignItems: 'center' }}>
-                    <BsFolder style={{ fontSize: '40', color: "white" }} />
-                    <p style={{ marginTop: "10px", color: "white" }}>
-                      {childFolder.name}
-                    </p>
 
-                  </div>
-                ))}
-            </div>
-          </Link>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
+            {
+              folders && folders.map(childFolder => (
+                <div key={childFolder.id} style={{ alignItems: 'center' }}>
+                  <BsFolder style={{ fontSize: '40', color: "white" }} />
+                  <p style={{ marginTop: "10px", color: "white" }}>
+                    {childFolder.name}
+                  </p>
+
+                </div>
+              ))}
+          </div>
+
         </div>
       </div>
     </>
