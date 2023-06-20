@@ -32,7 +32,7 @@ import { Link } from 'react-router-dom';
 function Dashboard() {
     const { user: contextUser, setUser } = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
-      const[currentUser,setCurrentUser]=useState(null);
+    const[currentUser,setCurrentUser] = useState(null);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
     const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");

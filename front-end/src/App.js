@@ -16,6 +16,7 @@ import Upload from './pages/Upload';
 import Youverified from './pages/Verified';
 import Verifyemail from './pages/VerifyUser';
 import { PrivateRoute } from './Privateroutes';
+import Files from './pages/Files';
 
 axios.defaults.baseURL = 'http://localhost:7000';
 axios.defaults.withCredentials = true
@@ -46,6 +47,7 @@ function App() {
           <Route path='/verified' element={<Youverified />} />
           <Route path='/verify-email' element={<Verifyemail />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='/files' element={<Files />} />
         </Routes>
       </Router>
     </UserContextProvider>
