@@ -9,11 +9,7 @@ const cvSchema = new Schema({
     createdAt: { type: Date, default: Date.now() },
     cloudinary_id: { type: String },
     Image: { type: Object, required: true },
-})
-// cvSchema.methods.remove = async function () {
-//     const cv = this;
-//     await cv.remove();
-// }
+});
 
 const cvModel = model('Cv', cvSchema);
 export default cvModel;
