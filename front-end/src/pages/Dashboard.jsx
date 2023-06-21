@@ -82,7 +82,7 @@ function Dashboard() {
             icon: <FaFile />
         },
         {
-            path: "/My CVs",
+            path: "/mycv",
             name: "My Cvs",
             icon: <TiDocumentText />
         },
