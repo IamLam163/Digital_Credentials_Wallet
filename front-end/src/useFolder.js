@@ -62,7 +62,7 @@ export function useFolder(folderId = null, folder = null) {
         payload: { folder: ROOT_FOLDER }
       });
     }
-  }, [folderId, folder]);
+  }, [folderId]);//removed folder
 
   return state;
 }

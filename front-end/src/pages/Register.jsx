@@ -31,22 +31,24 @@ export default function Register() {
     const { name, email, password } = data;
 
     try {
-      const { data } = await axios.post('/register', {
+      const { data: responseData } = await axios.post('/register', {
         name,
         email,
         password,
       });
-      if (data.error) {
-        toast.error(data.error);
+      console.log(responseData);
+      if (responseData.error) {
+        toast.error(responseData.error);
       } else {
         setData({ name: '', email: '', password: '' });
         toast.success('Congratulations Signup successful!');
-        navigate('/');
+        navigate(`/verify-email/${responseData.userId}`);
       }
     } catch (error) {
       console.log(error.toString());
     }
   };
+
 
   const defaultTheme = createTheme();
 
@@ -116,7 +118,7 @@ export default function Register() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/verify-email" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -56,6 +56,8 @@ export const registerUser = async (req, res) => {
     });
     await verifyToken.save();
 
+    const userId = user._id;
+
     mailTransport().sendMail({
       from: 'digitalcredentialswallet@email.com',
       to: user.email,
@@ -63,7 +65,7 @@ export const registerUser = async (req, res) => {
       html: generateEmailTemplate(OTP),
     })
 
-    return res.json({ user })
+    return res.json({ userId })
   } catch (error) {
     console.log(error.toString());
   }
@@ -116,17 +118,9 @@ export const logoutUser = (req, res) => {
 }
 
 export const verifyEmail = async (req, res) => {
-  const { userId, otp } = req.body
-  if (!userId || !otp) {
-    return res.json({
-      error: 'Invalid request! Missing Parameters!'
-    });
-  }
-  if (!isValidObjectId(userId)) {
-    return res.json({
-      error: 'User not Found! Invalid User ID'
-    })
-  }
+  const { otp } = req.body
+  const userId = req.params.id;
+
   const user = await User.findById(userId);
   if (!user) {
     return res.json({
@@ -138,7 +132,16 @@ export const verifyEmail = async (req, res) => {
       error: 'This account is already verified!'
     });
   }
-
+  if (!otp) {
+    return res.json({
+      error: 'Please Input your OTP!'
+    });
+  }
+  if (!isValidObjectId(userId)) {
+    return res.json({
+      error: 'User not Found! Invalid User ID'
+    })
+  }
   //checks/validates current token with the token assigned to the user in database
   //current token = validtoken while token in (validtoken.token) is token in database
   //validtoken matches token with a user
@@ -180,7 +183,60 @@ export const verifyEmail = async (req, res) => {
   })
 
 }
+/*
+export const verifyEmail = async (req, res) => {
+  try {
+    const { otp } = req.body;
+    const userId = req.params.id;
 
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'No User Found!' });
+    }
+    if (user.verified) {
+      return res.status(400).json({ error: 'This account is already verified!' });
+    }
+    if (!otp) {
+      return res.status(400).json({ error: 'Please Input your OTP!' });
+    }
+    if (!isValidObjectId(userId)) {
+      return res.status(400).json({ error: 'User not Found! Invalid User ID' });
+    }
+
+    const validToken = await verificationToken.findOne({ owner: user._id });
+    if (!validToken) {
+      return res.status(400).json({ error: 'Sorry, Token does not match any Existing User!' });
+    }
+
+    const isTokenValid = await compareToken(otp, validToken.token);
+    if (!isTokenValid) {
+      return res.status(400).json({ error: 'Invalid OTP! Please provide a valid OTP.' });
+    }
+
+    user.verified = true;
+    await verificationToken.findByIdAndDelete(validToken._id);
+    await user.save();
+
+    mailTransport().sendMail({
+      from: 'your-email@example.com',
+      to: user.email,
+      subject: 'Quick Action: Verify your email address',
+      html: plainEmailTemplate('Email verified Successfully', 'Thanks for using our Service'),
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Email Successfully Verified!',
+      user: { name: user.name, email: user.email, id: user._id },
+    });
+  } catch (error) {
+    // Handle and log any exceptions or unexpected errors
+    console.log(error);
+    res.status(500).json({ error: 'An unexpected error occurred during email verification.' });
+  }
+};
+
+*/
 
 export const forgotPassword = async (req, res) => {
   const { email } = req.body;

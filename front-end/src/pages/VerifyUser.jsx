@@ -1,10 +1,15 @@
+import axios from 'axios';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { MdEmail } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import './VerifyUser.css';
+import { useParams } from 'react-router-dom';
 
 const Verifyemail = () => {
   const [otp, setOTP] = useState('');
-
+  const navigate = useNavigate();
+  const { userId } = useParams();
   const handleOTPChange = (e) => {
     setOTP(e.target.value);
   };
@@ -13,8 +18,23 @@ const Verifyemail = () => {
     // Code to resend the OTP
   };
 
-  const handleVerifyOTP = () => {
+  const handleVerifyOTP = async (e) => {
     // Code to verify the entered OTP
+    e.preventDefault()
+    try {
+      const response = await axios.post(`/verify-email/${userId}`, { otp });
+      const { data: responseData } = response;
+      if (responseData.error) {
+        toast.error(responseData.error);
+      } else {
+        setOTP('');
+        toast.success('Verification Success!');
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('An error occurred during verification. Please try again.');
+    }
   };
 
   return (

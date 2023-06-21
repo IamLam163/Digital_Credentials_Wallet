@@ -44,7 +44,7 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/upload' element={<Upload />} />
           <Route path='/verified' element={<Youverified />} />
-          <Route path='/verify-email' element={<Verifyemail />} />
+          <Route path='/verify-email/:userId' element={<Verifyemail />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Router>

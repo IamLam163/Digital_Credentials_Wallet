@@ -6,7 +6,7 @@ import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormLabel, Input } from '@mui/material';
 import axios from 'axios';
 
-export default function AddFolderButton({ }) {
+export default function AddFolderButton({ currentFolder }) {
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
@@ -14,7 +14,7 @@ export default function AddFolderButton({ }) {
     const fetchCurrentUser = async () => {
       try {
         const { data } = await axios.get('/profile');
-        const folderIdResponse = await axios.get(`folder/folderId/${data.id}`);
+        const folderIdResponse = await axios.get(`/folderId/${data.id}`);
         const { folderId } = folderIdResponse.data;
         const updatedUser = setCurrentUser({ ...data, folderId });
         console.log(updatedUser)
@@ -37,7 +37,7 @@ export default function AddFolderButton({ }) {
     if (currentUser) {
       try {
         // console.log({ user })
-        const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: currentUser.folderId });
+        const response = await axios.post('/folder/add', { name: folderName, owner: currentUser.id, parentId: currentFolder?.id || null, });
         const { data } = response
         console.log('Folder created Successfully:', data.folder);
         // setFolders(data?.folder);
