@@ -44,7 +44,6 @@ router.post('/pdf', upload.single('file'), async (req, res) => {
     });
 
     await pdf.save();
-    // res.json({ pdf });
 
     return res.json({
       pdf: pdf, // Return the saved pdf object

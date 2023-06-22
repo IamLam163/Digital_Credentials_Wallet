@@ -9,41 +9,40 @@ import folderRouter from './routes/folder-routes.js';
 import CvRouter from './routes/CvRoutes.js';
 import pdfRouter from './routes/pdf-routes.js';
 
-dotenv.config()
+dotenv.config();
 
 const app = express();
 const port = 7000;
 
-// database connection
+// Database connection
 mongoose.connect(process.env.MONGO_URL)
   .then(() => {
-    console.log('Connected to Database')
+    console.log('Connected to Database');
   })
   .catch((err) => {
-    console.log('Database connection failed!', err.toString())
-  })
+    console.log('Database connection failed!', err.toString());
+  });
 
-// Set CORS headers
+// Enable CORS
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true
+  credentials: true,
 }));
 
-//Middleware
+// Middleware
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-//routes
+// Routes
 app.use('/', router);
 app.use('/folder', folderRouter);
 app.use('/cv', CvRouter);
 app.use('/cv/:id', CvRouter);
 app.use('/user/cv/:id', CvRouter);
 app.use('/pdf', pdfRouter);
-//route for cv
 
-// server connection
+// Server connection
 app.listen(port, () =>
   console.log(`Server is running on http://localhost:${port}`));
