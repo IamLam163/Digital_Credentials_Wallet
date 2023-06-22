@@ -87,6 +87,29 @@ router.get('/user/pdf/:id', async (req, res) => {
 });
 
 router.delete('/user/pdf/:id', async (req, res) => {
+  const pdfId = req.params.id;
+  try {
+    const pdf = await Pdf.findById(pdfId);
+    if (!pdf) {
+      return res.json({ error: 'No pdf with this ID Found' });
+    }
+
+    // Delete file from Firebase Storage
+    const fileRef = storage.bucket().file(pdf.downloadURL);
+    await fileRef.delete();
+
+    // Delete document from MongoDB
+    await pdf.remove();
+
+    return res.json({ success: 'Pdf deleted successfully' });
+  } catch (error) {
+    console.error(error.toString());
+    return res.json({ error: error.toString() });
+  }
+});
+
+/*
+router.delete('/user/pdf/:id', async (req, res) => {
   const { pdfId } = req.params.id
   let pdf;
   try {
@@ -119,5 +142,6 @@ const giveCurrentDateTime = () => {
     date.getSeconds()
   );
 };
+*/
 
 export default router;
