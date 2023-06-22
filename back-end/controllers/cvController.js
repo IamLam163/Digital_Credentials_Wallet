@@ -1,4 +1,5 @@
-import user from '../models/user.js';
+import User from '../models/user.js';
+import Cv from '../models/Cv.js'
 import mongoose from 'mongoose';
 const ObjectId = mongoose.Types.ObjectId;
 
@@ -20,7 +21,7 @@ export const getAllCvs = async (req, res) => {
 
 export const createCv = async (req, res) => {
     const { name, parentId, owner, image } = req.body;
-    const user = await user.findById(owner);
+    const user = await User.findById(owner);
     if (!user) {
         return res.json({
             error: 'Cv cannot be created without a valid user'
@@ -46,19 +47,35 @@ export const createCv = async (req, res) => {
     }
 }
 export const getcvById = async (req, res) => {
-        const { cvId } = req.params;
-        let cv;
-        try {
-            cv = await Cv.findById(cvId).exec();
-        } catch (error) {
-            console.error(error.toString());
-            return res.json({ error: error });
-        }
-        if (!cv) {
-            return res.json({
-                error: 'No cv Found!'
-            });
-        }
-        return res.json({ cv });
+    const { cvId } = req.params;
+    let cv;
+    try {
+        cv = await Cv.findById(cvId).exec();
+    } catch (error) {
+        console.error(error.toString());
+        return res.json({ error: error });
     }
-    
+    if (!cv) {
+        return res.json({
+            error: 'No cv Found!'
+        });
+    }
+    return res.json({ cv });
+}
+
+export const deleteCvById = async (req, res) => {
+    const { cvId } = req.params;
+    let cv;
+    try {
+        cv = await Cv.findOneAndDelete({ _id: cvId });
+        console.log('Deleted', Cv);
+    } catch (error) {
+        console.log(error.toString());
+    }
+    if (!cv) {
+        return res.json({
+            error: 'No Cv with this ID Found!'
+        })
+    }
+    return res.json({ success: 'Pdf deleted successfully' });
+}

@@ -9,6 +9,7 @@ import {
   rem,
 } from '@mantine/core';
 import image from '../images/svg-7.svg';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createStyles((theme) => ({
   root: {
@@ -48,6 +49,10 @@ const useStyles = createStyles((theme) => ({
 
 function NotFound() {
   const { classes } = useStyles();
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/login');
+  };
 
   return (
     <Container className={classes.root}>
@@ -59,7 +64,7 @@ function NotFound() {
             Page you are trying to open does not exist. You may have mistyped the address, or the
             page has been moved to another URL. If you think this is an error contact support.
           </Text>
-          <Button variant="outline" size="md" mt="xl"  to='/landingpage' className={classes.control}>
+          <Button onClick={handleClick} variant="outline" size="md" mt="xl" to='/' className={classes.control}>
             Get back to home page
           </Button>
         </div>

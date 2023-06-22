@@ -31,17 +31,18 @@ export default function Register() {
     const { name, email, password } = data;
 
     try {
-      const { data } = await axios.post('/register', {
+      const { data: responseData } = await axios.post('/register', {
         name,
         email,
         password,
       });
-      if (data.error) {
-        toast.error(data.error);
+      console.log(responseData);
+      if (responseData.error) {
+        toast.error(responseData.error);
       } else {
         setData({ name: '', email: '', password: '' });
         toast.success('Congratulations Signup successful!');
-        navigate('/');
+        navigate(`/verify-email/${responseData.userId}`);
       }
     } catch (error) {
       console.log(error.toString());
