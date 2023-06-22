@@ -56,6 +56,8 @@ export const registerUser = async (req, res) => {
     });
     await verifyToken.save();
 
+    const userId = user._id;
+
     mailTransport().sendMail({
       from: 'digitalcredentialswallet@email.com',
       to: user.email,
@@ -63,7 +65,7 @@ export const registerUser = async (req, res) => {
       html: generateEmailTemplate(OTP),
     })
 
-    return res.json({ user })
+    return res.json({ userId })
   } catch (error) {
     console.log(error.toString());
   }
@@ -116,17 +118,9 @@ export const logoutUser = (req, res) => {
 }
 
 export const verifyEmail = async (req, res) => {
-  const { userId, otp } = req.body
-  if (!userId || !otp) {
-    return res.json({
-      error: 'Invalid request! Missing Parameters!'
-    });
-  }
-  if (!isValidObjectId(userId)) {
-    return res.json({
-      error: 'User not Found! Invalid User ID'
-    })
-  }
+  const { otp } = req.body
+  const userId = req.params.id;
+
   const user = await User.findById(userId);
   if (!user) {
     return res.json({
@@ -138,7 +132,16 @@ export const verifyEmail = async (req, res) => {
       error: 'This account is already verified!'
     });
   }
-
+  if (!otp) {
+    return res.json({
+      error: 'Please Input your OTP!'
+    });
+  }
+  if (!isValidObjectId(userId)) {
+    return res.json({
+      error: 'User not Found! Invalid User ID'
+    })
+  }
   //checks/validates current token with the token assigned to the user in database
   //current token = validtoken while token in (validtoken.token) is token in database
   //validtoken matches token with a user
