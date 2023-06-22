@@ -17,6 +17,7 @@ import Youverified from './pages/Verified';
 import Verifyemail from './pages/VerifyUser';
 import { PrivateRoute } from './Privateroutes';
 import Files from './pages/Files';
+import DropzoneButton from './pages/dropZone';
 import Mycv from './pages/Mycv';
 
 axios.defaults.baseURL = 'http://localhost:7000';
@@ -50,6 +51,7 @@ function App() {
           <Route path='/mycv' element={<Mycv />} />
           <Route path='*' element={<NotFound />} />
           <Route path='/files' element={<Files />} />
+          <Route path='/dropzone' element={<DropzoneButton />} />
         </Routes>
       </Router>
     </UserContextProvider>

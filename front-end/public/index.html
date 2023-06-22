@@ -9,13 +9,20 @@
       name="description"
       content="Web site created using create-react-app"
     />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>Digital wallet</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <!-- Include the PDF.js library and the worker script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/{version}/pdf.js"></script>
+    <script>
+      // Set the workerSrc property for PDF.js
+      // This should be done before any PDF.js related code is executed
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/{version}/pdf.worker.js';
+    </script>
   </body>
 </html>
+

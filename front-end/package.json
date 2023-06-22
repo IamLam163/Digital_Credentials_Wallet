@@ -34,7 +34,9 @@
     "cloudinary-react": "^1.8.1",
     "dayjs": "^1.11.8",
     "framer-motion": "^10.12.16",
+    "pdfjs-dist": "^3.7.107",
     "react": "^18.2.0",
+    "react-doc-viewer": "^0.1.5",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
@@ -43,6 +45,7 @@
     "react-scripts": "^5.0.1",
     "react-scroll": "^1.8.9",
     "styled-components": "^5.3.11",
+    "url": "^0.11.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

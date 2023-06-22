@@ -16,7 +16,7 @@ const upload = multer({ storage: multer.memoryStorage()});
 // const user_id = await user.findById(owner);
 
 router.post('/pdf', upload.single('file'), async (req, res) => {
-  try{
+  try {
     const dateTime = giveCurrentDateTime();
     const storageRef = ref(getStorage(app), `files/${req.file.originalname}_${dateTime}`);
 
@@ -31,20 +31,23 @@ router.post('/pdf', upload.single('file'), async (req, res) => {
     console.log('file uploaded successfully');
 
     const pdf = new Pdf({
+      file: req.file.mimetype,
       name: req.file.originalname,
-      owner: new ObjectId(req.body.owner), // user authentication system and `req.user` contains the authenticated user's information
-      downloadURL: downloadURL,
+      owner: new ObjectId(req.body.owner),
       file: {
         originalname: req.file.originalname,
         mimetype: req.file.mimetype,
         size: req.file.size,
         path: req.file.path,
+        downloadURL: downloadURL,
       },
     });
 
     await pdf.save();
+    // res.json({ pdf });
 
     return res.json({
+      pdf: pdf, // Return the saved pdf object
       downloadURL: downloadURL,
       name: req.file.originalname,
       size: snapshot.totalBytes,
@@ -55,6 +58,7 @@ router.post('/pdf', upload.single('file'), async (req, res) => {
     return res.json({ error: error.toString() });
   }
 });
+
 router.get('/pdf/:id', async (req, res) => {
     try {
         let pdf = await Pdf.findById(req.params.id);
@@ -86,6 +90,21 @@ router.get('/user/pdf/:id', async (req, res) => {
     }
 });
 
+router.delete('/delete/pdf/:id', async (req, res) => {
+    try {
+        let pdf = await Pdf.findByIdAndDelete(req.params.id);
+        // console.log(pdf);
+    if (!pdf) {
+        return res.json({
+        error: 'No pdf Found!'
+        });
+    }
+    return res.json({ pdf });
+    } catch (error) {
+        console.error(error.toString());
+        return res.json({ error: error });
+    }
+});
 const giveCurrentDateTime = () => {
   const date = new Date();
   return (

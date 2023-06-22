@@ -38,8 +38,8 @@ const Upload = () => {
   };
 
   return (
-    <div>
-      <h2>Upload CV</h2>
+    <div className='header'>
+      <h2>Upload Images</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
