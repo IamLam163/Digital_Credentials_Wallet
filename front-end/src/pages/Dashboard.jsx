@@ -22,9 +22,6 @@ import { FaQuestionCircle } from 'react-icons/fa'
 import AddFolderButton from './AddFolderButton'
 import { useFolder } from '../components/hooks/useFolder'
 import Folder from './Folder'
-// import { useContext } from 'react';
-// import { UserContext } from '../context/userContext';
-// import { BiSolidFolder } from 'react-icons/bi'
 
 import { BsFolder } from 'react-icons/bs'
 import { Link } from 'react-router-dom';
@@ -140,7 +137,7 @@ function Dashboard() {
                 </div>
                 <div className='middle'>
                     <div className='buttonF'>
-                        <AddFolderButton currentFolder={folder} />
+                        <AddFolderButton currentFolder={folder} style={{ fontSize: '40' }}/>
                         <Link to='/upload'>
                         <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
                             {
