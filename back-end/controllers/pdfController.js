@@ -6,12 +6,12 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 import config from '../utils/Firebase.js';
 import multer from 'multer';
 import router from '../routes/authRoutes.js';
-import User from '../models/user.js';
+import user from '../models/user.js';
 
 const ObjectId = mongoose.Types.ObjectId;
 export const createCv = async (req, res) => {
   const { name, parentId, owner, file } = req.body;
-  const user = await User.findById(owner);
+  const user = await user.findById(owner);
   if (!user) {
     return res.json({
       error: 'Pdf cannot be created without a valid user'
@@ -20,7 +20,7 @@ export const createCv = async (req, res) => {
   try {
     const pdfData = {
       name,
-      owner,
+      owner: user_id,
       file,
 
     };
@@ -52,22 +52,6 @@ export const getPdfById = async (req, res) => {
     });
   }
   return res.json({ pdf });
-}
-export const deletePdfById = async (req, res) => {
-  const { pdfId } = req.params
-  let pdf;
-  try {
-    pdf = await Pdf.findOneAndDelete({ _id: pdfId });
-    console.log('Deleted', pdf);
-  } catch (error) {
-    console.log(error.toString());
-  }
-  if (!pdf) {
-    return res.json({
-      error: 'No pdf with this ID Found',
-    })
-  }
-  return res.json({ success: 'Pdf deleted successfully' });
 }
 
 export default router;
