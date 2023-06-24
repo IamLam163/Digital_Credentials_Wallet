@@ -40,4 +40,3 @@ const Mycv = () => {
 };
 
 export default Mycv;
-
