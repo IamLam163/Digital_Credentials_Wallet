@@ -33,7 +33,7 @@ const Mycv = () => {
   };
 
   return(
-    <div>
+    <div style={{ display: 'flex', flewWrap: 'wrap'}}>
     <CvRender cvList={cvList} onDocumentLoadSuccess={onDocumentLoadSuccess} />
     </div>
   )
