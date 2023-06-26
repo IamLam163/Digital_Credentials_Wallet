@@ -6,6 +6,8 @@ import router from './routes/authRoutes.js';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import folderRouter from './routes/folder-routes.js';
+import CvRouter from './routes/CvRoutes.js';
+import pdfRouter from './routes/pdf-routes.js';
 
 dotenv.config()
 
@@ -36,6 +38,11 @@ app.use(express.urlencoded({ extended: true }));
 //routes
 app.use('/', router);
 app.use('/folder', folderRouter);
+app.use('/cv', CvRouter);
+app.use('/cv/:id', CvRouter);
+app.use('/user/cv/:id', CvRouter);
+app.use('/pdf', pdfRouter);
+//route for cv
 
 // server connection
 app.listen(port, () =>

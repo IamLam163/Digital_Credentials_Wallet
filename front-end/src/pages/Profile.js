@@ -43,7 +43,7 @@ export default function Profile() {
               {user.email}
             </Text>
 
-            <Button variant="default" fullWidth mt="md">
+            <Button onClick={handleSubmit} variant="default" fullWidth mt="md">
               Change Password
             </Button>
           </Paper>

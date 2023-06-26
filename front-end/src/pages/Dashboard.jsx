@@ -20,14 +20,12 @@ import { toast } from 'react-hot-toast'
 import { motion } from 'framer-motion';
 import { FaQuestionCircle } from 'react-icons/fa'
 import Folder from './Folder'
-// import { useContext } from 'react';
-// import { UserContext } from '../context/userContext';
-// import { BiSolidFolder } from 'react-icons/bi'
 
 
 function Dashboard() {
     const { user: contextUser, setUser } = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
 
@@ -59,7 +57,7 @@ function Dashboard() {
             icon: <FaFile />
         },
         {
-            path: "/My CVs",
+            path: "/mycv",
             name: "My Cvs",
             icon: <TiDocumentText />
         },
@@ -115,9 +113,31 @@ function Dashboard() {
                             </motion.div>
                         ))}
                 </div>
-                <Folder />
+<<<<<<< HEAD
+    <Folder />
 
-            </div>
+=======
+                <div className='middle'>
+                    <div className='buttonF'>
+                        <AddFolderButton currentFolder={folder} style={{ fontSize: '40' }}/>
+                        <Link to='/upload'>
+                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
+                            {
+                                folders && folders.map(childFolder => (
+                                    <div key={childFolder.id} style={{ alignItems: 'center' }}>
+                                    <BsFolder style={{ fontSize: '40', color:"white"}} />
+                                        <p style={{ marginTop: "10px", color: "white"}}>
+                                        {childFolder.name}
+                                        </p>
+                                        
+                                    </div>
+                                ))}
+                        </div>
+                         </Link>
+                    </div>
+                </div>
+>>>>>>> main
+            </div >
         </>
     )
 }

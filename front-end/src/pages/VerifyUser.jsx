@@ -1,15 +1,16 @@
-import axios from 'axios';
 import React, { useState } from 'react';
-import { toast } from 'react-hot-toast';
 import { MdEmail } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
 import './VerifyUser.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 
 const Verifyemail = () => {
   const [otp, setOTP] = useState('');
   const navigate = useNavigate();
   const { userId } = useParams();
+
+
   const handleOTPChange = (e) => {
     setOTP(e.target.value);
   };
@@ -29,11 +30,11 @@ const Verifyemail = () => {
       } else {
         setOTP('');
         toast.success('Verification Success!');
-        navigate('/dashboard');
+        navigate('/verified');
       }
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred during verification. Please try again.');
+      toast.error('An error occured during Verification. Please try again.');
     }
   };
 

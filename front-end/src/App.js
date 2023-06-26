@@ -16,6 +16,9 @@ import Upload from './pages/Upload';
 import Youverified from './pages/Verified';
 import Verifyemail from './pages/VerifyUser';
 import { PrivateRoute } from './Privateroutes';
+import Files from './pages/Files';
+import Mycv from './pages/Mycv';
+import DropzoneButton from './pages/dropZone';
 
 axios.defaults.baseURL = 'http://localhost:7000';
 axios.defaults.withCredentials = true
@@ -45,7 +48,10 @@ function App() {
           <Route path='/upload' element={<Upload />} />
           <Route path='/verified' element={<Youverified />} />
           <Route path='/verify-email/:userId' element={<Verifyemail />} />
+          <Route path='/mycv' element={<Mycv />} />
           <Route path='*' element={<NotFound />} />
+          <Route path='/files' element={<Files />} />
+          <Route path='/dropzone' element={<DropzoneButton />} />
         </Routes>
       </Router>
     </UserContextProvider>
