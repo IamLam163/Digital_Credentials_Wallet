@@ -33,9 +33,15 @@ export const createFolder = async (req, res) => {
       owner: user
     };
     if (parentId) {
-      folderData.parentId = ObjectId(parentId);
+      if (!mongoose.Types.ObjectId.isValid(parentId)) {
+        return res.json({
+          error: 'Invalid parentId'
+        });
+      }
+      folderData.parentId = new ObjectId(parentId);
     }
     const folder = new Folder(folderData);
+    console.log(folder)
     await folder.save();
     console.log('Folder created successfully');
     return res.json({ folder });
@@ -66,6 +72,7 @@ export const updateFolderName = async (req, res) => {
   }
 };
 
+/*
 export const getFolderById = async (req, res) => {
   const folderId = req.params.id;
   try {
@@ -81,14 +88,39 @@ export const getFolderById = async (req, res) => {
     return res.json({ error: 'Error getting folder' });
   }
 };
-
+*/
+export const getFolderById = async (req, res) => {
+  const userId = req.params.id
+  const user = await User.findById(userId)
+  if (!user) {
+    return res.json({
+      error: 'User was not found!'
+    })
+  }
+  const folder = await Folder.findOne({ owner: user._id });
+  console.log('This is the folder', folder)
+  return res.json({
+    folderId: folder._id
+  });
+}
+/*
+export const getFolderById = async (req, res) => {
+  const owner = req.params.id;
+  const user = await User.findById(owner);
+  if (!user) {
+    return res.json({ error: 'User Not Found' });
+  }
+  return res.json({ folderId: user.folderId });
+}
+*/
 
 export const getUserFolder = async (req, res) => {
   const userId = req.params.id;
   const user = await User.findById(userId);
-  console.log(user)
+  //console.log(user)
   try {
     const folder = await Folder.find({ owner: user._id });
+    console.log(folder)
     if (!folder) {
       return res.json({
         error: 'Folder has no owner'

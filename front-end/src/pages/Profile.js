@@ -2,10 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Text, Button, Paper } from '@mantine/core';
 import { UserContext } from '../context/userContext';
 import { CircularProgress } from '@mui/material';
+import axios from 'axios';
 
 export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(UserContext);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/forgot-password')
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,7 +52,7 @@ export default function Profile() {
               {user.email}
             </Text>
 
-            <Button variant="default" fullWidth mt="md">
+            <Button onClick={handleSubmit} variant="default" fullWidth mt="md">
               Change Password
             </Button>
           </Paper>

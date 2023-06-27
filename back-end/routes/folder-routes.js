@@ -15,7 +15,7 @@ folderRouter.use(
 folderRouter.get('/all', getAllFolders);
 folderRouter.post('/add', createFolder);
 folderRouter.put('/rename/:id', updateFolderName);
-folderRouter.get('/:id', getFolderById);
+folderRouter.get('/folderId/:id', getFolderById);
 folderRouter.get('/user/:id', getUserFolder);
 
 export default folderRouter;

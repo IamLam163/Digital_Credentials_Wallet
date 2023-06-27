@@ -49,6 +49,7 @@ export default function Register() {
     }
   };
 
+
   const defaultTheme = createTheme();
 
   return (
@@ -117,7 +118,7 @@ export default function Register() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <Link href="/verify-email" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
