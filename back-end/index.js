@@ -25,7 +25,8 @@ mongoose.connect(process.env.MONGO_URL)
 
 // Set CORS headers
 app.use(cors({
-  origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com',
+  // origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com',
+  origin: 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app' || 'https://digital-wallet.onrender.com',
   credentials: true
 }));
 
