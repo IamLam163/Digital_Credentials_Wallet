@@ -20,7 +20,7 @@ import Files from './pages/Files';
 import Mycv from './pages/Mycv';
 import DropzoneButton from './pages/dropZone';
 
-axios.defaults.baseURL = 'http://localhost:7000';
+axios.defaults.baseURL = 'http://localhost:7000' || 'https://digital-wallet.onrender.com';
 axios.defaults.withCredentials = true
 
 

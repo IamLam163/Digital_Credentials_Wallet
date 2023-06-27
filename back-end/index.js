@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URL)
 
 // Set CORS headers
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com',
   credentials: true
 }));
 
