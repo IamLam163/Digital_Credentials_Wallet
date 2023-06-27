@@ -31,7 +31,7 @@ export default function Login() {
     const { email, password } = data;
 
     try {
-      const response = await axios.post('https://digital-wallet.onrender.com/api/login', { email, password });
+      const response = await axios.post('https://digital-wallet.onrender.com/login', { email, password });
       const { data } = response;
       if (data.error) {
         toast.error(data.error);
