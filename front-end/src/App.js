@@ -1,6 +1,6 @@
 import './App.css';
-import React, { useContext, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -25,7 +25,7 @@ axios.defaults.withCredentials = true
 
 
 function App() {
-  const { user } = useContext(UserContext);
+  //const { user } = useContext(UserContext);
   /*  const navigate = useNavigate();
   
     useEffect(() => {

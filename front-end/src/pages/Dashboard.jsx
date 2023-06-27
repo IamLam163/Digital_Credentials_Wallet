@@ -19,8 +19,12 @@ import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { motion } from 'framer-motion';
 import { FaQuestionCircle } from 'react-icons/fa'
-import Folder from './Folder'
+import AddFolderButton from './AddFolderButton'
+import { useFolder } from '../components/hooks/useFolder'
+//import Folder from './Folder'
 
+import { BsFolder } from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
     const { user: contextUser, setUser } = useContext(UserContext)
@@ -28,7 +32,25 @@ function Dashboard() {
     const [currentUser, setCurrentUser] = useState(null);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
-
+    const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");
+    // console.log(folder);
+    const [folders, setFolders] = useState([]);
+    //const { user } = useContext(UserContext);
+    //fetch all folders
+    useEffect(() => {
+        (
+            async () => {
+                try {
+                    const { data } = await axios.get('/profile');
+                    setCurrentUser(data);
+                    let res = await axios.get(`/folder/user/${data?.id}`);
+                    setFolders(res.data.folder);
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        )()
+    }, [])
 
     const handleLogout = async () => {
         const confirmed = window.confirm('Are you sure you want to logout?');
@@ -113,7 +135,6 @@ function Dashboard() {
                             </motion.div>
                         ))}
                 </div>
-                <Folder />
                 <div className='middle'>
                     <div className='buttonF'>
                         <AddFolderButton currentFolder={folder} style={{ fontSize: '40' }} />
@@ -133,7 +154,7 @@ function Dashboard() {
                         </Link>
                     </div>
                 </div>
-            </div >
+            </div>
         </>
     )
 }
