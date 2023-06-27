@@ -8,7 +8,8 @@ const folderRouter = express.Router()
 folderRouter.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com'
+    // origin: 'https://digital-wallet.onrender.com' || 'http://localhost:3000'
+    origin: 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app'
   })
 )
 
