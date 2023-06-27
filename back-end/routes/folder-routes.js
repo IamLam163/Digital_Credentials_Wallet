@@ -8,7 +8,7 @@ const folderRouter = express.Router()
 folderRouter.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com'
   })
 )
 
