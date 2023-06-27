@@ -113,30 +113,26 @@ function Dashboard() {
                             </motion.div>
                         ))}
                 </div>
-<<<<<<< HEAD
-    <Folder />
-
-=======
+                <Folder />
                 <div className='middle'>
                     <div className='buttonF'>
-                        <AddFolderButton currentFolder={folder} style={{ fontSize: '40' }}/>
+                        <AddFolderButton currentFolder={folder} style={{ fontSize: '40' }} />
                         <Link to='/upload'>
-                        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
-                            {
-                                folders && folders.map(childFolder => (
-                                    <div key={childFolder.id} style={{ alignItems: 'center' }}>
-                                    <BsFolder style={{ fontSize: '40', color:"white"}} />
-                                        <p style={{ marginTop: "10px", color: "white"}}>
-                                        {childFolder.name}
-                                        </p>
-                                        
-                                    </div>
-                                ))}
-                        </div>
-                         </Link>
+                            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', marginTop: "50px", gap: "20px" }}>
+                                {
+                                    folders && folders.map(childFolder => (
+                                        <div key={childFolder.id} style={{ alignItems: 'center' }}>
+                                            <BsFolder style={{ fontSize: '40', color: "white" }} />
+                                            <p style={{ marginTop: "10px", color: "white" }}>
+                                                {childFolder.name}
+                                            </p>
+
+                                        </div>
+                                    ))}
+                            </div>
+                        </Link>
                     </div>
                 </div>
->>>>>>> main
             </div >
         </>
     )
