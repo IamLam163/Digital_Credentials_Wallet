@@ -10,7 +10,7 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/forgot-password')
+      const response = await axios.post('https://digital-wallet.onrender.com/forgot-password')
     } catch (error) {
       console.log(error);
     }
