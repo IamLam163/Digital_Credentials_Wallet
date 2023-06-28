@@ -32,7 +32,8 @@ function Dashboard() {
     const [currentUser, setCurrentUser] = useState(null);
     const toggle = () => setIsOpen(!isOpen);
     const navigate = useNavigate();
-    const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");
+    // const { folder, childFolder } = useFolder("6489b2187e46e11301c3eac3");
+    const { folder, childFolder } = useFolder("");
     // console.log(folder);
     const [folders, setFolders] = useState([]);
     //const { user } = useContext(UserContext);
