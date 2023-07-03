@@ -1,9 +1,6 @@
 import React from "react";
 import PdfViewer from "./PdfViewer";
 import { Button } from "@mantine/core";
-
-// import Button from '@material-ui/core/Button';
-
 function CvRender({ cvList, onDocumentLoadSuccess }) {
   return (
     <>
@@ -22,7 +19,7 @@ function CvRender({ cvList, onDocumentLoadSuccess }) {
             style={{
               backgroundColor: "black",
               marginTop: "30px",
-              marginLeft: "30px",
+              marginLeft: "30px"
             }}
           >
             Home
@@ -79,5 +76,4 @@ function CvRender({ cvList, onDocumentLoadSuccess }) {
     </>
   );
 }
-
 export default CvRender;
