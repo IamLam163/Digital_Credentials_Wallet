@@ -9,7 +9,7 @@ router.use(
   cors({
     credentials: true,
     // origin: 'http://localhost:3000' || 'https://digital-wallet.onrender.com'
-    origin: 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app'
+    origin: 'http://localhost:3000' || 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app'
   })
 );
 

@@ -10,7 +10,8 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://digital-wallet.onrender.com/forgot-password')
+      // const response = await axios.post('https://digital-credentials-wallet-git-latest-iamlam163.vercel.app/forgot-password')
+      const response = await axios.post('http://localhost:7000/forgot-password')
     } catch (error) {
       console.log(error);
     }

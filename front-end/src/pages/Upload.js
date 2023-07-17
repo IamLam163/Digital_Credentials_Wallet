@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
+import "./Upload.css";
+import { Button } from "@mantine/core";
+import { BiImageAdd } from "react-icons/bi";
+import { HiOutlineCloudUpload } from "react-icons/hi";
 
 const Upload = () => {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [image, setImage] = useState(null);
 
   const handleNameChange = (event) => {
@@ -15,17 +19,17 @@ const Upload = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { data } = await axios.get('/profile');
+    const { data } = await axios.get("/profile");
     const userId = data.id;
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('image', image);
-    formData.append('owner', userId);
+    formData.append("name", name);
+    formData.append("image", image);
+    formData.append("owner", userId);
 
     try {
-      const response = await axios.post('/cv', formData, {
+      const response = await axios.post("/cv", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
       });
 
@@ -38,20 +42,48 @@ const Upload = () => {
   };
 
   return (
-    <div>
-      <h2>Upload CV</h2>
+    <div className="outer">
+      <HiOutlineCloudUpload
+        style={{ marginBottom: "30px", fontSize: "75px" }}
+      />
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="inner">
           <label>Name:</label>
-          <input type="text" value={name} onChange={handleNameChange} />
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            className="name-input"
+            style={{
+              height: "40px",
+              borderRadius: "10px",
+              border: "2px solid #ccc",
+              marginLeft: "20px",
+            }}
+          />
         </div>
-        <div>
+        <div className="upper">
           <label>Image:</label>
-          <input type="file" onChange={handleImageChange} />
+          <Button
+            variant="outline"
+            component="label"
+            style={{ marginLeft: "20px" }}
+            className="file-input-button"
+          >
+            <BiImageAdd></BiImageAdd> Choose File
+            <input
+              type="file"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
+            />
+          </Button>
         </div>
-        <button type="submit">Upload</button>
+        <Button variant="outline" type="submit" className="upload-button">
+          Upload
+        </Button>
       </form>
     </div>
   );
 };
+
 export default Upload;

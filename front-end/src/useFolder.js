@@ -2,11 +2,11 @@ import { useEffect, useReducer } from "react";
 import axios from "axios";
 
 const ACTIONS = {
-  SELECT_FOLDER: 'select-folder',
-  UPDATE_FOLDER: 'update-folder',
-}
+  SELECT_FOLDER: "select-folder",
+  UPDATE_FOLDER: "update-folder",
+};
 
-const ROOT_FOLDER = { name: 'Root', id: null, path: [] }
+const ROOT_FOLDER = { name: "Root", id: null, path: [] };
 
 function reducer(state, { type, payload }) {
   switch (type) {
@@ -16,18 +16,18 @@ function reducer(state, { type, payload }) {
         folder: payload.folder,
         childFiles: [],
         childFolders: [],
-      }
+      };
     case ACTIONS.UPDATE_FOLDER:
       return {
         ...state,
         folder: payload.folder,
-      }
+      };
     default:
       return state;
   }
 }
-
 export function useFolder(folderId = null, folder = null) {
+  
   const [state, dispatch] = useReducer(reducer, {
     folderId,
     folder: null,

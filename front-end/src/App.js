@@ -20,7 +20,8 @@ import Files from './pages/Files';
 import Mycv from './pages/Mycv';
 import DropzoneButton from './pages/dropZone';
 
-axios.defaults.baseURL = 'https://digital-wallet.onrender.com' || 'http://localhost:7000';
+// axios.defaults.baseURL = 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app' || 'http://localhost:7000';
+axios.defaults.baseURL = 'http://localhost:7000';
 axios.defaults.withCredentials = true
 
 

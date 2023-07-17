@@ -53,6 +53,9 @@ function NotFound() {
   const handleClick = () => {
     navigate('/login');
   };
+  const handleSubmit = () => {
+    navigate('/dashboard');
+  };
 
   return (
     <Container className={classes.root}>
@@ -65,6 +68,9 @@ function NotFound() {
             page has been moved to another URL. If you think this is an error contact support.
           </Text>
           <Button onClick={handleClick} variant="outline" size="md" mt="xl" to='/' className={classes.control}>
+            Return to Login page
+          </Button>
+          <Button onClick={handleSubmit} variant="outline" size="md" mt="xl" to='/' className={classes.control}>
             Get back to home page
           </Button>
         </div>
