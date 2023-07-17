@@ -4,6 +4,7 @@ import "./Upload.css";
 import { Button } from "@mantine/core";
 import { BiImageAdd } from "react-icons/bi";
 import { HiOutlineCloudUpload } from "react-icons/hi";
+import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 const Upload = () => {
   const [name, setName] = useState("");
@@ -43,7 +44,7 @@ const Upload = () => {
 
   return (
     <div className="outer">
-      <HiOutlineCloudUpload
+      <AiOutlineCloudUpload
         style={{ marginBottom: "30px", fontSize: "75px" }}
       />
       <form onSubmit={handleSubmit}>
@@ -70,7 +71,8 @@ const Upload = () => {
             style={{ marginLeft: "20px" }}
             className="file-input-button"
           >
-            <BiImageAdd></BiImageAdd> Choose File
+            <BiImageAdd></BiImageAdd> 
+            Choose File
             <input
               type="file"
               style={{ display: "none" }}

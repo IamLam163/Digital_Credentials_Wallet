@@ -16,15 +16,17 @@
   box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
   text-align: center;
   max-width: 400px;
-  color: #228be6;
+  color: black;
+  font-weight: 400;
 }
 
 .upper {
   font-size: 20px;
   font-weight: lighter;
-  color: #228be6;
+  color: black;
   margin-bottom: 8px;
   margin-top: 0;
+  font-weight: 400;
 }
 
 .upper {
@@ -35,6 +37,7 @@
   text-align: center;
   max-width: 400px;
   margin-top: 10px;
+  font-weight: 400;
 }
 
 .file-input-button:hover {
