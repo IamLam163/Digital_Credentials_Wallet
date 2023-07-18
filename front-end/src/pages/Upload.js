@@ -5,10 +5,14 @@ import { Button } from "@mantine/core";
 import { BiImageAdd } from "react-icons/bi";
 import { HiOutlineCloudUpload } from "react-icons/hi";
 import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { Text } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 
 const Upload = () => {
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
+  const [ uploadProgress, setUploadProgress ] = useState(0)
+  const navigate = useNavigate();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -32,9 +36,14 @@ const Upload = () => {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+      onUploadProgess : (progressEvent) => {
+        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        setUploadProgress(progress);
+        },
       });
 
       console.log(response.data);
+      navigate("/Files");
       // Handle success or redirect to another page
     } catch (error) {
       console.log(error);
@@ -78,6 +87,21 @@ const Upload = () => {
               style={{ display: "none" }}
               onChange={handleImageChange}
             />
+            {uploadProgress > 0 && (
+        <Text
+          style={{
+            marginTop: '1rem',
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            color: 'green',
+            textAlign: 'center',
+            height: '20px',
+            width: '10px'
+          }}
+        >
+          {uploadProgress}% uploaded
+        </Text>
+      )}
           </Button>
         </div>
         <Button variant="outline" type="submit" className="upload-button">
