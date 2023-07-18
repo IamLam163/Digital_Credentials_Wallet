@@ -17,6 +17,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import AddFolderButton from "./AddFolderButton";
 import { useFolder } from "../components/hooks/useFolder";
 import { Typography } from "@mui/material";
+import { BsImages } from "react-icons/bs";
 //import Folder from './Folder'
 
 import { BsFolder } from "react-icons/bs";
@@ -70,8 +71,8 @@ function Dashboard() {
     },
     {
       path: "/Files",
-      name: "Files",
-      icon: <FaFile />,
+      name: "My Images",
+      icon: <BsImages />,
     },
     {
       path: "/mycv",
