@@ -5,13 +5,15 @@ import { useFolder } from "../components/hooks/useFolder";
 import { BsFolder } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { UserContext } from "../context/userContext";
 
 function Folder() {
-  const { folder } = useFolder("648faee62f6c7a4104ad5ea1");
+  // const { folder } = useFolder("648faee62f6c7a4104ad5ea1");
+  const { folder, childFolder } = useFolder("");
   const [folders, setFolders] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
-  const state = useFolder();
-  console.log(state);
+  // const state = useFolder();
+  // console.log(state);
   //fetch all folders
   useEffect(() => {
     (async () => {
@@ -24,33 +26,34 @@ function Folder() {
         console.log(error);
       }
     })();
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
       <div className="middle">
         <div className="buttonF">
-          <AddFolderButton currentFolder={folder} />
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              flexWrap: "wrap",
-              marginTop: "50px",
-              gap: "20px",
-            }}
-          >
-            {folders &&
-              folders.map((childFolder) => (
-                <div key={childFolder.id} style={{ alignItems: "center" }}>
-                  <BsFolder style={{ fontSize: "40", color: "white" }} />
-                  <p style={{ marginTop: "10px", color: "white" }}>
-                    {childFolder.name}
-                  </p>
-                </div>
-              ))}
-          </div>
+          <AddFolderButton currentFolder={folder} style={{ fontSize: "40" }} />
+          <Link to="/upload">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                marginTop: "50px",
+                gap: "20px",
+              }}
+            >
+              {folders &&
+                folders.map((childFolder) => (
+                  <div key={childFolder.id} style={{ alignItems: "center" }}>
+                    <BsFolder style={{ fontSize: "40", color: "white" }} />
+                    <p style={{ marginTop: "10px", color: "white" }}>
+                      {childFolder.name}
+                    </p>
+                  </div>
+                ))}
+            </div>
+          </Link>
         </div>
       </div>
     </>
