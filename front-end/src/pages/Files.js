@@ -24,9 +24,27 @@ const Files = () => {
     })();
   }, []);
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`/cv/${id}`);
+      console.log(response.data);
+      setCvList(cvList.filter((cv) => cv._id !== id));
+    } catch (error) {
+      console.log(error);
+  }
+  }
+
   return (
     <>
-      <div style={{ justifyContent: "center", marginTop: "30px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px",
+          marginTop: "10px",
+        }}
+      >
         <a href="/upload">
           <Button variant="outline" type="submit" className="upload-button">
             Upload More
@@ -66,7 +84,20 @@ const Files = () => {
         ) : (
           cvList.map((cv) => (
             <div key={cv._id}>
-              <h3>{cv.name}</h3>
+              <a href={cv.Image.secure_url}>
+                <p
+                  style={{
+                    color: "#829BE6",
+                    fontSize: "20px",
+                    textAlign: "center",
+                    border: "1px solid #829BE6",
+                    borderRadius: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  {cv.name}
+                </p>
+              </a>
               <img
                 src={cv.Image.secure_url}
                 width={300}
@@ -78,6 +109,11 @@ const Files = () => {
                   flexWrap: "wrap",
                 }}
               />
+              <div>
+              <Button variant='outline' onClick={() => handleDelete(cv._id)}>
+                Delete
+              </Button>
+              </div>
             </div>
           ))
         )}

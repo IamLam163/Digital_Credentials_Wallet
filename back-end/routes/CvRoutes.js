@@ -21,7 +21,7 @@ router.post('/cv', upload.single('image'), async (req, res) => {
         res.json(cv); // Send the response after saving the cv object
 
         console.log('Cv created successfully');
-        console.log(result)
+        // console.log(result)
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Server error' });
@@ -38,7 +38,7 @@ router.get('/cv', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('cv/:id', async (req, res) => {
   try {
     let cv = await Cv.findById(req.params.id);
     console.log(cv)
