@@ -16,7 +16,6 @@ const Files = () => {
         setCurrentUser(data);
         const response = await axios.get(`/user/cv/${data?.id}`);
         setCvList(response.data);
-        console.log(response.data);
         setCvList(response.data);
       } catch (error) {
         console.log(error);
@@ -24,15 +23,17 @@ const Files = () => {
     })();
   }, []);
 
-  const handleDelete = async (id) => {
+const handleDelete = async (id) => {
+  if (window.confirm('Are you sure you want to delete this CV?')) {
     try {
-      const response = await axios.delete(`/cv/${id}`);
-      console.log(response.data);
+      const response = await axios.delete(`/user/cv/${id}`);
+      console.log('Response from server:', response.data);
       setCvList(cvList.filter((cv) => cv._id !== id));
     } catch (error) {
-      console.log(error);
+      console.error('Error while deleting CV:', error);
+    }
   }
-  }
+};
 
   return (
     <>
@@ -109,8 +110,8 @@ const Files = () => {
                   flexWrap: "wrap",
                 }}
               />
-              <div>
-              <Button variant='outline' onClick={() => handleDelete(cv._id)}>
+              <div style={{ marginTop: '10px'}}>
+              <Button variant='filled' onClick={() => handleDelete(cv._id)}>
                 Delete
               </Button>
               </div>
