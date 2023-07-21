@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import pic from "../images/svg-15.svg";
 import { Button } from "@mantine/core";
+import Sidebar from "./Sidebar.js";
 // import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 const Files = () => {
@@ -82,6 +83,7 @@ const Files = () => {
           ))
         )}
       </div>
+      <Sidebar />
     </>
   );
 };
