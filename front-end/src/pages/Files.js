@@ -16,7 +16,6 @@ const Files = () => {
         setCurrentUser(data);
         const response = await axios.get(`/user/cv/${data?.id}`);
         setCvList(response.data);
-        console.log(response.data);
         setCvList(response.data);
       } catch (error) {
         console.log(error);
@@ -24,9 +23,29 @@ const Files = () => {
     })();
   }, []);
 
+const handleDelete = async (id) => {
+  if (window.confirm('Are you sure you want to delete this CV?')) {
+    try {
+      const response = await axios.delete(`/user/cv/${id}`);
+      console.log('Response from server:', response.data);
+      setCvList(cvList.filter((cv) => cv._id !== id));
+    } catch (error) {
+      console.error('Error while deleting CV:', error);
+    }
+  }
+};
+
   return (
     <>
-      <div style={{ justifyContent: "center", marginTop: "30px" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "20px",
+          marginTop: "10px",
+        }}
+      >
         <a href="/upload">
           <Button variant="outline" type="submit" className="upload-button">
             Upload More
@@ -66,7 +85,20 @@ const Files = () => {
         ) : (
           cvList.map((cv) => (
             <div key={cv._id}>
-              <h3>{cv.name}</h3>
+              <a href={cv.Image.secure_url}>
+                <p
+                  style={{
+                    color: "#829BE6",
+                    fontSize: "20px",
+                    textAlign: "center",
+                    border: "1px solid #829BE6",
+                    borderRadius: "10px",
+                    marginBottom: "10px",
+                  }}
+                >
+                  {cv.name}
+                </p>
+              </a>
               <img
                 src={cv.Image.secure_url}
                 width={300}
@@ -78,6 +110,11 @@ const Files = () => {
                   flexWrap: "wrap",
                 }}
               />
+              <div style={{ marginTop: '10px'}}>
+              <Button variant='filled' onClick={() => handleDelete(cv._id)}>
+                Delete
+              </Button>
+              </div>
             </div>
           ))
         )}

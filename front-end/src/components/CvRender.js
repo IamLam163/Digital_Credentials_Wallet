@@ -9,7 +9,7 @@ function CvRender({ cvList, onDocumentLoadSuccess }) {
     <>
     <div>
     <a href='/dropzone'>
-    <Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px'}}> Upload More</Button>
+    <Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px'}}> Upload More Documents</Button>
     </a>
     <a href='/dashboard'><Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px', marginLeft: '30px'}}>Home</Button>
     </a>

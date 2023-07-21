@@ -21,7 +21,7 @@ router.post('/cv', upload.single('image'), async (req, res) => {
         res.json(cv); // Send the response after saving the cv object
 
         console.log('Cv created successfully');
-        console.log(result)
+        // console.log(result)
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Server error' });
@@ -38,24 +38,7 @@ router.get('/cv', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
-  try {
-    let cv = await Cv.findById(req.params.id);
-    console.log(cv)
-    if (!cv) {
-      return res.status(404).json({ error: 'CV not found' });
-    }
 
-    await cloudinary.uploader.destroy(cv.cloudinary_id);
-    console.log('Cv deleted successfully');
-    await cv.remove();
-
-    res.json(cv);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
 router.get('/cv/:id', async (req, res) => {
 try{
   let cv = await Cv.findById(req.params.id);
@@ -72,7 +55,6 @@ try{
 router.get('/user/cv/:id', async (req, res) => {
   try{
     let cv = await Cv.find({owner: req.params.id});
-    console.log(cv)
     if (!cv) {
       return res.status(404).json({ error: 'CV not found' });
     }
@@ -81,6 +63,24 @@ router.get('/user/cv/:id', async (req, res) => {
     console.log(error);
   
   };
+});
+
+//delete with user id
+router.delete('/user/cv/:id', async (req, res) => {
+  try {
+    const cv = await Cv.findOneAndDelete({ _id: req.params.id }).lean();
+
+    if (!cv) {
+      return res.status(404).json({ error: 'CV not found' });
+    }
+
+    await cloudinary.uploader.destroy(cv.cloudinary_id);
+    console.log('Image deleted successfully');
+    res.json(cv);
+  } catch (error) {
+    res.status(500).json({ error });
+    console.log(error);
+  }
 });
 
 

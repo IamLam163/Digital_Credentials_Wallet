@@ -43,6 +43,7 @@ app.use('/cv', CvRouter);
 app.use('/cv/:id', CvRouter);
 app.use('/user/cv/:id', CvRouter);
 app.use('/pdf', pdfRouter);
+app.use('/cv/:id', router);
 //route for cv
 
 // server connection
