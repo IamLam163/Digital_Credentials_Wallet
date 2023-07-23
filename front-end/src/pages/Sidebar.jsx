@@ -54,11 +54,6 @@ function Sidebar() {
       icon: <BsImages />,
     },
     {
-      path: "/mycv",
-      name: "My Cvs",
-      icon: <TiDocumentText />,
-    },
-    {
       path: "/Setting",
       name: "Settings",
       icon: <FiSettings />,
