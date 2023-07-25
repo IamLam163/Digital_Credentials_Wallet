@@ -7,6 +7,7 @@ import { HiOutlineCloudUpload } from "react-icons/hi";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 const Upload = () => {
   const [name, setName] = useState("");
@@ -38,7 +39,7 @@ const Upload = () => {
         },
         onUploadProgess: (progressEvent) => {
           const progress = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           setUploadProgress(progress);
         },
@@ -52,60 +53,65 @@ const Upload = () => {
   };
 
   return (
-    <div className="outer">
-      <AiOutlineCloudUpload
-        style={{ marginBottom: "30px", fontSize: "75px" }}
-      />
-      <form onSubmit={handleSubmit}>
-        <div className="inner">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={handleNameChange}
-            className="name-input"
-            style={{
-              height: "40px",
-              borderRadius: "10px",
-              border: "2px solid #ccc",
-              marginLeft: "20px",
-            }}
-          />
-        </div>
-        <div className="upper">
-          <label>Image:</label>
-          <Button
-            variant="outline"
-            component="label"
-            style={{ marginLeft: "20px" }}
-            className="file-input-button"
-          >
-            <BiImageAdd />
-            Choose File
+    <div style={{ display: "flex" }}>
+      <div>
+        <Sidebar />
+      </div>
+      <div className="outer">
+        <AiOutlineCloudUpload
+          style={{ marginBottom: "30px", fontSize: "75px" }}
+        />
+        <form onSubmit={handleSubmit}>
+          <div className="inner">
+            <label>Name:</label>
             <input
-              type="file"
-              style={{ display: "none" }}
-              onChange={handleImageChange}
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+              className="name-input"
+              style={{
+                height: "40px",
+                borderRadius: "10px",
+                border: "2px solid #ccc",
+                marginLeft: "20px",
+              }}
             />
-            {uploadProgress > 0 && (
-              <Text
-                style={{
-                  marginTop: "1rem",
-                  fontSize: "1rem",
-                  fontWeight: "bold",
-                  color: "green",
-                  textAlign: "center",
-                }}
-              >
-                {uploadProgress}% uploaded
-              </Text>
-            )}
+          </div>
+          <div className="upper">
+            <label>Image:</label>
+            <Button
+              variant="outline"
+              component="label"
+              style={{ marginLeft: "20px" }}
+              className="file-input-button"
+            >
+              <BiImageAdd />
+              Choose File
+              <input
+                type="file"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+              {uploadProgress > 0 && (
+                <Text
+                  style={{
+                    marginTop: "1rem",
+                    fontSize: "1rem",
+                    fontWeight: "bold",
+                    color: "green",
+                    textAlign: "center",
+                  }}
+                >
+                  {uploadProgress}% uploaded
+                </Text>
+              )}
+            </Button>
+          </div>
+          <Button variant="outline" type="submit" className="upload-button">
+            Upload
           </Button>
-        </div>
-        <Button variant="outline" type="submit" className="upload-button">
-          Upload
-        </Button>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };

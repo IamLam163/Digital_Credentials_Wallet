@@ -44,7 +44,7 @@ function Dashboard() {
       icon: <FaUserEdit />,
     },
     {
-      path: "/Folders",
+      path: "/dashboard",
       name: "Folders",
       icon: <FaFolder />,
     },

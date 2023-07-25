@@ -44,7 +44,7 @@ function Sidebar() {
       icon: <FaUserEdit />,
     },
     {
-      path: "/Folders",
+      path: "/dashboard",
       name: "Folders",
       icon: <FaFolder />,
     },
@@ -73,10 +73,6 @@ function Sidebar() {
 
   return (
     <>
-      {!!contextUser && (
-        <p>Welcome to your Credential Wallet {contextUser.name}!</p>
-      )}
-
       <div className="container">
         <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
           <div className="top_section">
@@ -115,7 +111,6 @@ function Sidebar() {
             </motion.div>
           ))}
         </div>
-        <Folder />
       </div>
     </>
   );
