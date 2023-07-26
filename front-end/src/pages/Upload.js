@@ -54,12 +54,10 @@ const Upload = () => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div>
         <Sidebar />
-      </div>
-      <div className="outer">
+      <div className="outer" style={{ justifyContent:'center', alignItems: 'center'}}>
         <AiOutlineCloudUpload
-          style={{ marginBottom: "30px", fontSize: "75px" }}
+          style={{ marginBottom: "30px", fontSize: "75px", marginLeft: '8rem', marginTop: '4rem'}}
         />
         <form onSubmit={handleSubmit}>
           <div className="inner">

@@ -36,13 +36,13 @@ export default function Profile() {
       <div>
         <Sidebar />
       </div>
-      <div style={{ marginLeft: "20px", display: "flex", flex: 1, justifyContent: "center" }}>
+      <div style={{ marginLeft: "20px", display: "flex", flex: 1, justifyContent: "center", height: '270px', marginTop: '20px'}}>
         {user && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Paper
               radius="md"
               withBorder
-              p="lg"
+              p="sm"
               sx={(theme) => ({
                 backgroundColor:
                   theme.colorScheme === "#001935"

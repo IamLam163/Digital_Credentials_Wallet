@@ -17,6 +17,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { Typography } from "@mui/material";
 import { BsImages } from "react-icons/bs";
 import Folder from "./Folder";
+import { RiUploadCloud2Fill } from "react-icons/ri";
 
 import { BsFolder } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -62,6 +63,11 @@ function Sidebar() {
       path: "/about",
       name: "FAQ",
       icon: <FaQuestionCircle />,
+    },
+    {
+      path: "/dropzone",
+      name: "Upload Document",
+      icon: <RiUploadCloud2Fill />,
     },
     {
       path: "/logout",

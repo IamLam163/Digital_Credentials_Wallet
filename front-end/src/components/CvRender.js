@@ -7,13 +7,15 @@ import { Button } from '@mantine/core';
 function CvRender({ cvList, onDocumentLoadSuccess }) {
   return (
     <>
-    <div>
-    <a href='/dropzone'>
-    <Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px'}}> Upload More Documents</Button>
-    </a>
-    <a href='/dashboard'><Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px', marginLeft: '30px'}}>Home</Button>
-    </a>
-    </div>
+   {/* <div style={{display: "flex",
+              alignItems: "center",
+              marginBottom: "20px",
+              marginTop: "10px",
+            }}>
+  <a href='/dropzone'>
+    <Button variant='filled' style={{ backgroundColor: 'black', marginTop: '30px' }}> Upload Document</Button>
+  </a>
+          </div>*/}
     <div style={{ display: 'flex', flexWrap: 'wrap', gap:'30px', marginTop:'50px', marginLeft: '50px', justifyContent: 'center'}}>
       {cvList &&
         cvList.length > 0 &&
