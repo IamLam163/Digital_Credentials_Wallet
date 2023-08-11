@@ -14,6 +14,7 @@ function PdfViewer({ url }) {
   };
 
   return (
+    <>
     <div style={{ width: '100%', height: '100%', border: '1px solid #ccc', position: 'relative' }}>
       <embed
         src={url}
@@ -39,8 +40,12 @@ function PdfViewer({ url }) {
         <span>Failed to load PDF file.</span>
         
       </div>
+      <div style={{ display: 'flex'}}>
       <Button variant="contained" color="primary" style={{ fontWeight: 'bold' }} onClick={sharePdf}> Share PDF </Button>
     </div>
+    </div>
+    </>
+    
   );
 }
 

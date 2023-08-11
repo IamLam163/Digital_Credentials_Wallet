@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Dashboard.css";
+import "./Sidebar.css";
 import { FaUserEdit, FaBars, FaFile, FaFolder } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
@@ -22,7 +22,7 @@ import { RiUploadCloud2Fill } from "react-icons/ri";
 import { BsFolder } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
-function Dashboard() {
+function Sidebar() {
   const { user: contextUser, setUser } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -55,11 +55,6 @@ function Dashboard() {
       icon: <BsImages />,
     },
     {
-      path: "/mycv",
-      name: "My Cvs",
-      icon: <TiDocumentText />,
-    },
-    {
       path: "/Setting",
       name: "Settings",
       icon: <FiSettings />,
@@ -84,10 +79,6 @@ function Dashboard() {
 
   return (
     <>
-      {!!contextUser && (
-        <p>Welcome to your Credential Wallet {contextUser.name}!</p>
-      )}
-
       <div className="container">
         <div style={{ width: isOpen ? "200px" : "50px" }} className="sidebar">
           <div className="top_section">
@@ -126,10 +117,9 @@ function Dashboard() {
             </motion.div>
           ))}
         </div>
-        <Folder />
       </div>
     </>
   );
 }
 
-export default Dashboard;
+export default Sidebar;
