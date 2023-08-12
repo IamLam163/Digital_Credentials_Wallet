@@ -25,6 +25,7 @@ mongoose
   });
 
 // Set CORS headers
+/*
 app.use(
   cors({
     // origin: 'http://localhost:3000' || 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app',
@@ -33,7 +34,25 @@ app.use(
     credentials: true,
   }),
 );
+*/
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://digital-credentials-wallet-git-latest-iamlam163.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function(origin, callback) {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  }),
+);
 //Middleware
 app.use(express.json());
 app.use(bodyParser.json());
