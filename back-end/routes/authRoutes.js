@@ -18,7 +18,7 @@ const router = express.Router();
 router.use(
   cors({
     credentials: true,
-    origin: "digital-credentials-wallet.vercel.app || http://localhost:3000",
+    origin: ["https://digital-credentials-wallet.vercel.app", "http://localhost:3000"],
     // origin: 'http://localhost:3000' || 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app'
   }),
 );
