@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import {
+  allUser,
   forgotPassword,
   getProfile,
   loginUser,
@@ -23,6 +24,7 @@ router.use(
 );
 
 router.get("/", test);
+router.get("/users", allUser);
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
