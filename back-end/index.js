@@ -39,6 +39,7 @@ app.use(
 const allowedOrigins = [
   "http://localhost:3000",
   "https://digital-credentials-wallet-git-latest-iamlam163.vercel.app",
+  "https://digital-credentials-wallet.vercel.app"
 ];
 
 app.use(
