@@ -1,8 +1,8 @@
-import axios from 'axios';
-import { createContext, useEffect, useState } from 'react';
-import { toast } from 'react-hot-toast';
+import axios from "axios";
+import { createContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
-export const UserContext = createContext({})
+export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -14,7 +14,9 @@ export function UserContextProvider({ children }) {
 
   const fetchUserData = async () => {
     try {
-      const { data } = await axios.get('/profile');
+      const { data } = await axios.get(
+        "https://digital-wallet.onrender.com/profile",
+      );
       setUser(data);
       setIsLoggedIn(true);
     } catch (error) {
@@ -24,16 +26,16 @@ export function UserContextProvider({ children }) {
   };
 
   const logout = async () => {
-    const confirmed = window.confirm('Are you sure you want to log out?');
+    const confirmed = window.confirm("Are you sure you want to log out?");
     if (!confirmed) return;
 
     try {
-      await axios.get('/logout');
+      await axios.get("https://digital-wallet.onrender.com/logout");
       // Clear local storage
       localStorage.clear();
       setUser(null);
       setIsLoggedIn(false);
-      toast.success('Logged Out Successfully');
+      toast.success("Logged Out Successfully");
     } catch (error) {
       console.log(error);
     }
@@ -41,14 +43,14 @@ export function UserContextProvider({ children }) {
 
   const loginUser = async (email, password) => {
     try {
-      const { data } = await axios.post('/login', { email, password });
+      const { data } = await axios.post("https://digital-wallet.onrender.com/login", { email, password });
       if (data.error) {
         toast.error(data.error);
         setIsLoggedIn(false);
       } else {
         await fetchUserData();
         setIsLoggedIn(true);
-        toast.success('Login Successful');
+        toast.success("Login Successful");
       }
     } catch (error) {
       console.log(error.toString());
@@ -57,7 +59,9 @@ export function UserContextProvider({ children }) {
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoggedIn, logout, loginUser }}>
+    <UserContext.Provider
+      value={{ user, setUser, isLoggedIn, logout, loginUser }}
+    >
       {children}
     </UserContext.Provider>
   );
