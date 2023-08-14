@@ -10,6 +10,12 @@ export const test = (req, res) => {
   res.json('test is working');
 };
 
+export const allUser = (req, res) => {
+  try {
+    ff
+  }
+}
+
 // Logic to register a User
 export const registerUser = async (req, res) => {
   try {
