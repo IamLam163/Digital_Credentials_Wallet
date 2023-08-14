@@ -11,10 +11,10 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // const response = await axios.post('https://digital-credentials-wallet-git-latest-iamlam163.vercel.app/forgot-password')
       const response = await axios.post(
-        "http://localhost:7000/forgot-password",
+        "https://digital-credentials-wallet.vercel.app/forgot-password",
       );
+      // const response = await axios.post("http://localhost:7000/forgot-password");
     } catch (error) {
       console.log(error);
     }
@@ -36,7 +36,16 @@ export default function Profile() {
       <div>
         <Sidebar />
       </div>
-      <div style={{ marginLeft: "20px", display: "flex", flex: 1, justifyContent: "center", height: '270px', marginTop: '20px'}}>
+      <div
+        style={{
+          marginLeft: "20px",
+          display: "flex",
+          flex: 1,
+          justifyContent: "center",
+          height: "270px",
+          marginTop: "20px",
+        }}
+      >
         {user && (
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Paper

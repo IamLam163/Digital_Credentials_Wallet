@@ -18,9 +18,9 @@ function Folder() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("/profile");
+        const { data } = await axios.get("https://digital-wallet.onrender.com/profile");
         setCurrentUser(data);
-        let res = await axios.get(`/folder/user/${data?.id}`);
+        let res = await axios.get(`https://digital-wallet.onrender.com/folder/user/${data?.id}`);
         setFolders(res.data.folder);
       } catch (error) {
         console.log(error);
