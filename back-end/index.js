@@ -39,7 +39,7 @@ app.use(
 const allowedOrigins = [
   "https://digital-credentials-wallet.vercel.app",
   "http://localhost:3000"
-]
+];
 
 app.use(
   cors({
