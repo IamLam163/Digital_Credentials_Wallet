@@ -130,7 +130,6 @@ export const loginUser = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
-          // return res.cookie("token", token).json(user);
           return res.status(200).json({
             success: true,
             user: {
