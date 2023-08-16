@@ -48,10 +48,11 @@ export default function Login() {
         setData({ email: "", password: "" });
         setLoading(false);
         console.log("Authenticated User:", responseData.user);
-        localStorage.setItem("token", data.token);
+        console.log("Get User Token:", responseData.token);
+        localStorage.setItem("token", responseData.token);
         toast.success("Login Successful");
-        console.log("User_Id:", responseData._id);
-        navigate(`/dashboard/${responseData._id}`);
+        console.log("User_Id:", responseData.id);
+        navigate(`/dashboard/${responseData.id}`);
       }
     } catch (error) {
       setLoading(false);
