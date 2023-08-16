@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
@@ -33,6 +34,7 @@ export default function Login() {
     try {
       // const response = await axios.post( 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app/login'|| 'http://localhost:7000/login', { email, password });
       // const response = await axios.post('http://localhost:7000/login', { email, password });
+      setLoading(true);
       const response = await axios.post(
         "https://digital-wallet.onrender.com/login",
         { email, password },
@@ -42,10 +44,13 @@ export default function Login() {
         toast.error(data.error);
       } else {
         setData({ email: "", password: "" });
+        setLoading(false);
+        localStorage.setItem("token", data.token);
         toast.success("Login Successful");
         navigate("/dashboard");
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -111,8 +116,9 @@ export default function Login() {
               fullWidth
               variant="contained"
               className="signin-button"
+              disabled={loading}
             >
-              Login
+              {loading ? "Logging in..." : "Login"}
             </Button>
 
             <Grid container>
