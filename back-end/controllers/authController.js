@@ -130,6 +130,7 @@ export const loginUser = async (req, res) => {
         {},
         (err, token) => {
           if (err) throw err;
+          console.log(user);
           return res.cookie("token", token).json(user);
         },
       );
@@ -350,8 +351,14 @@ export const resetPassword = async (req, res) => {
   });
 };
 
+// previously named testProfile
 export const getProfile = (req, res) => {
   const { token } = req.cookies;
+
+  if (!token) {
+    return res.json({ error: "Authentication required" });
+  }
+
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, {}, (err, user) => {
       if (err) throw err;
@@ -361,3 +368,23 @@ export const getProfile = (req, res) => {
     return res.json(null);
   }
 };
+
+/*
+export const getProfile = async (req, res) => {
+  const userId = req.params.id;
+  
+  try {
+    const user = await User.findById(userId);
+    if (user) {
+      return res.json({ user });
+    }
+    else {
+    return res.json(null);
+    }
+  }
+  catch (error) {
+    console.log(error);
+    return res.json({ "An error occurred while fetching the user profile" });
+  }
+};
+*/
