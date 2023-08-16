@@ -45,6 +45,7 @@ export default function Login() {
       } else {
         setData({ email: "", password: "" });
         setLoading(false);
+        console.log(data.user)
         localStorage.setItem("token", data.token);
         toast.success("Login Successful");
         navigate("/dashboard");
