@@ -9,7 +9,6 @@ import {
   registerUser,
   resetPassword,
   test,
-  testProfile,
   verifyEmail,
 } from "../controllers/authController.js";
 import { isResetTokenValid } from "../helpers/auth.js";
