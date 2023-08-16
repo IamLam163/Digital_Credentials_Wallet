@@ -1,6 +1,6 @@
 import "./Login.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -18,6 +18,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  // const { id } = useParams();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -40,15 +41,16 @@ export default function Login() {
         { email, password },
       );
       const { data: responseData } = response;
-      console.log("Response Data:", responseData)
+      console.log("Response Data:", responseData);
       if (responseData.error) {
         toast.error(responseData.error);
       } else {
         setData({ email: "", password: "" });
         setLoading(false);
-        console.log("Authenticated User:", responseData.user)
+        console.log("Authenticated User:", responseData.user);
         localStorage.setItem("token", data.token);
         toast.success("Login Successful");
+        console.log("User_Id:", responseData._id);
         navigate(`/dashboard/${responseData._id}`);
       }
     } catch (error) {
