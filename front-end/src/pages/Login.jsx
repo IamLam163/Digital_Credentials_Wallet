@@ -39,13 +39,14 @@ export default function Login() {
         "https://digital-wallet.onrender.com/login",
         { email, password },
       );
-      const { data } = response;
-      if (data.error) {
-        toast.error(data.error);
+      const { data: responseData } = response;
+      console.log("Response Data:", responseData)
+      if (responseData.error) {
+        toast.error(responseData.error);
       } else {
         setData({ email: "", password: "" });
         setLoading(false);
-        console.log(data)
+        console.log("Authenticated User:", responseData.user)
         localStorage.setItem("token", data.token);
         toast.success("Login Successful");
         navigate("/dashboard");
