@@ -13,9 +13,30 @@ export function UserContextProvider({ children }) {
   }, []);
 
   const fetchUserData = async () => {
-    const storedUserData = await localStorage.getItem("responseData");
     try {
-      // const storedUserData = await localStorage.getItem("responseData");
+      const storedResponseData = localStorage.getItem("responseData");
+      const parsedResponseData = JSON.parse(storedResponseData);
+
+      if (parsedResponseData && !parsedResponseData.error) {
+        setUser(parsedResponseData.user);
+        setIsLoggedIn(true);
+        console.log("Authenticated User:", parsedResponseData.user);
+        console.log("User_Id:", parsedResponseData.user.id);
+        navigate(`/dashboard/${parsedResponseData.user.id}`);
+      } else {
+        console.log("Error:", parsedResponseData.error);
+        setIsLoggedIn(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoggedIn(false);
+    }
+  };
+
+  /*
+  const fetchUserData = async () => {
+    try {
+      const storedUserData = await localStorage.getItem("responseData");
       console.log(storedUserData);
       console.log(storedUserData.user);
       setUser(storedUserDatadata);
@@ -25,6 +46,8 @@ export function UserContextProvider({ children }) {
       setIsLoggedIn(false);
     }
   };
+*/
+
   /*
  * // Retrieving user data from local storage
 const storedUserData = localStorage.getItem("user");
