@@ -52,6 +52,8 @@ export default function Login() {
         localStorage.setItem("token", responseData.token);
         toast.success("Login Successful");
         console.log("User_Id:", responseData.user.id);
+        console.log("Please log Name:", responseData.user.name);
+        console.log("PLease log userName:", responseData.name);
         navigate(`/dashboard/${responseData.id}`);
       }
     } catch (error) {
