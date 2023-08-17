@@ -14,17 +14,29 @@ export function UserContextProvider({ children }) {
 
   const fetchUserData = async () => {
     try {
-      const { data } = await axios.get(
-        "https://digital-wallet.onrender.com/profile"
+      const { storedUserData } = await localStorage.getItem(
+        "responseData.user",
       );
-      setUser(data);
+      console.log(storedUserData);
+      setUser(storedUserDatadata);
       setIsLoggedIn(true);
     } catch (error) {
       console.log(error);
       setIsLoggedIn(false);
     }
   };
+  /*
+ * // Retrieving user data from local storage
+const storedUserData = localStorage.getItem("user");
 
+if (storedUserData) {
+  const userData = JSON.parse(storedUserData);
+  console.log(userData.username); // "john_doe"
+  console.log(userData.email);    // "john@example.com"
+  // Access other user properties...
+} else {
+  console.log("User data not found in local
+ * */
   const logout = async () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (!confirmed) return;
@@ -43,7 +55,10 @@ export function UserContextProvider({ children }) {
 
   const loginUser = async (email, password) => {
     try {
-      const { data } = await axios.post("https://digital-wallet.onrender.com/login", { email, password });
+      const { data } = await axios.post(
+        "https://digital-wallet.onrender.com/login",
+        { email, password },
+      );
       if (data.error) {
         toast.error(data.error);
         setIsLoggedIn(false);
