@@ -13,8 +13,9 @@ export function UserContextProvider({ children }) {
   }, []);
 
   const fetchUserData = async () => {
+    const storedUserData = await localStorage.getItem("responseData");
     try {
-      const storedUserData = await localStorage.getItem("responseData");
+      // const storedUserData = await localStorage.getItem("responseData");
       console.log(storedUserData);
       console.log(storedUserData.user);
       setUser(storedUserDatadata);
