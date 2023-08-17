@@ -51,7 +51,7 @@ export default function Login() {
         console.log("Get User Token:", responseData.token);
         localStorage.setItem("token", responseData.token);
         toast.success("Login Successful");
-        console.log("User_Id:", responseData.id);
+        console.log("User_Id:", responseData.user.id);
         navigate(`/dashboard/${responseData.id}`);
       }
     } catch (error) {

@@ -15,7 +15,7 @@ export function UserContextProvider({ children }) {
   const fetchUserData = async () => {
     try {
       const { data } = await axios.get(
-        "https://digital-wallet.onrender.com/profile"
+        "/profile"
       );
       setUser(data);
       setIsLoggedIn(true);
