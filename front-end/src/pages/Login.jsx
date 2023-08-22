@@ -19,7 +19,6 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  // const { id } = useParams();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -34,8 +33,6 @@ export default function Login() {
     const { email, password } = data;
 
     try {
-      // const response = await axios.post( 'https://digital-credentials-wallet-git-latest-iamlam163.vercel.app/login'|| 'http://localhost:7000/login', { email, password });
-      // const response = await axios.post('http://localhost:7000/login', { email, password });
       setLoading(true);
       const response = await axios.post(
         "https://digital-wallet.onrender.com/login",
@@ -49,10 +46,9 @@ export default function Login() {
         setData({ email: "", password: "" });
         setLoading(false);
         console.log("Authenticated User:", responseData.user);
-        localStorage.setItem("responseData", responseData);
+        localStorage.setItem("responseData", JSON.stringify(responseData)); // Store as JSON string
         toast.success("Login Successful");
         console.log("User_Id:", responseData.user.id);
-        // navigate("/dashboard");
         navigate(`/dashboard/${responseData.user.id}`);
       }
     } catch (error) {
@@ -62,6 +58,7 @@ export default function Login() {
   };
 
   const defaultTheme = createTheme();
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
