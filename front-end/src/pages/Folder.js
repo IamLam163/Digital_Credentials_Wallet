@@ -5,11 +5,12 @@ import { useFolder } from "../components/hooks/useFolder";
 import { BsFolder } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { UserContext } from "../context/userContext";
+// import { UserContext } from "../context/userContext";
 
 function Folder() {
   // const { folder } = useFolder("648faee62f6c7a4104ad5ea1");
-  const { folder, childFolder } = useFolder("");
+  const { folder } = useFolder("");
+  // const { folder, childFolder } = useFolder("");
   const [folders, setFolders] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   // const state = useFolder();
@@ -18,9 +19,13 @@ function Folder() {
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("https://digital-wallet.onrender.com/profile");
+        const { data } = await axios.get(
+          "https://digital-wallet.onrender.com/profile",
+        );
         setCurrentUser(data);
-        let res = await axios.get(`https://digital-wallet.onrender.com/folder/user/${data?.id}`);
+        let res = await axios.get(
+          `https://digital-wallet.onrender.com/folder/user/${data?.id}`,
+        );
         setFolders(res.data.folder);
       } catch (error) {
         console.log(error);

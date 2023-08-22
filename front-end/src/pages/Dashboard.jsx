@@ -1,10 +1,12 @@
 import React from "react";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+// import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
-import { FaUserEdit, FaBars, FaFile, FaFolder } from "react-icons/fa";
+import { FaUserEdit, FaBars, FaFolder } from "react-icons/fa";
+// import { FaUserEdit, FaBars, FaFile, FaFolder } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TiDocumentText } from "react-icons/ti";
@@ -14,13 +16,13 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FaQuestionCircle } from "react-icons/fa";
-import { Typography } from "@mui/material";
+// import { Typography } from "@mui/material";
 import { BsImages } from "react-icons/bs";
 import Folder from "./Folder";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 
-import { BsFolder } from "react-icons/bs";
-import { Link } from "react-router-dom";
+// import { BsFolder } from "react-icons/bs";
+// import { Link } from "react-router-dom";
 
 function Dashboard() {
   const { user: contextUser, setUser } = useContext(UserContext);

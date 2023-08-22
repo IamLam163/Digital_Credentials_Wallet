@@ -7,7 +7,8 @@ import Sidebar from "./Sidebar.jsx";
 
 const Files = () => {
   const [cvList, setCvList] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -42,7 +43,7 @@ const Files = () => {
         <div>
           <Sidebar />
         </div>
-        <div style={{ marginLeft: '20px', flex: 1 }}>
+        <div style={{ marginLeft: "20px", flex: 1 }}>
           <div
             style={{
               display: "flex",
@@ -117,7 +118,10 @@ const Files = () => {
                     }}
                   />
                   <div style={{ marginTop: "10px" }}>
-                    <Button variant="filled" onClick={() => handleDelete(cv._id)}>
+                    <Button
+                      variant="filled"
+                      onClick={() => handleDelete(cv._id)}
+                    >
                       Delete
                     </Button>
                   </div>

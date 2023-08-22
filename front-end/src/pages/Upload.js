@@ -3,7 +3,7 @@ import axios from "axios";
 import "./Upload.css";
 import { Button } from "@mantine/core";
 import { BiImageAdd } from "react-icons/bi";
-import { HiOutlineCloudUpload } from "react-icons/hi";
+// import { HiOutlineCloudUpload } from "react-icons/hi";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { Text } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
