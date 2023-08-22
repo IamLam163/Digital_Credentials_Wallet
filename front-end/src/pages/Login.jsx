@@ -1,6 +1,7 @@
 import "./Login.css";
 import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
