@@ -14,15 +14,19 @@ export function UserContextProvider({ children }) {
   const fetchUserData = async () => {
     try {
       const storedResponseData = localStorage.getItem("responseData");
-      const parsedResponseData = JSON.parse(storedResponseData);
+      if (storedResponseData) {
+        const parsedResponseData = JSON.parse(storedResponseData);
 
-      if (parsedResponseData && !parsedResponseData.error) {
-        setUser(parsedResponseData.user);
-        setIsLoggedIn(true);
-        console.log("Authenticated User:", parsedResponseData.user);
-        console.log("User_Id:", parsedResponseData.user.id);
+        if (!parsedResponseData.error && parsedResponseData.user) {
+          setUser(parsedResponseData.user);
+          setIsLoggedIn(true);
+          console.log("Authenticated User:", parsedResponseData.user);
+          console.log("User_Id:", parsedResponseData.user.id);
+        } else {
+          console.log("Error:", parsedResponseData.error);
+          setIsLoggedIn(false);
+        }
       } else {
-        console.log("Error:", parsedResponseData.error);
         setIsLoggedIn(false);
       }
     } catch (error) {
@@ -32,32 +36,26 @@ export function UserContextProvider({ children }) {
   };
 
   /*
-  const fetchUserData = async () => {
-    try {
-      const storedUserData = await localStorage.getItem("responseData");
-      console.log(storedUserData);
-      console.log(storedUserData.user);
-      setUser(storedUserDatadata);
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.log(error);
-      setIsLoggedIn(false);
-    }
-  };
-*/
-
-  /*
- * // Retrieving user data from local storage
-const storedUserData = localStorage.getItem("user");
-
-if (storedUserData) {
-  const userData = JSON.parse(storedUserData);
-  console.log(userData.username); // "john_doe"
-  console.log(userData.email);    // "john@example.com"
-  // Access other user properties...
-} else {
-  console.log("User data not found in local
- * */
+    const fetchUserData = async () => {
+      try {
+        const storedResponseData = localStorage.getItem("responseData");
+        const parsedResponseData = JSON.parse(storedResponseData);
+  
+        if (parsedResponseData && !parsedResponseData.error) {
+          setUser(parsedResponseData.user);
+          setIsLoggedIn(true);
+          console.log("Authenticated User:", parsedResponseData.user);
+          console.log("User_Id:", parsedResponseData.user.id);
+        } else {
+          console.log("Error:", parsedResponseData.error);
+          setIsLoggedIn(false);
+        }    
+      } catch (error) {
+        console.log(error);
+        setIsLoggedIn(false);
+      }
+    };
+  */
   const logout = async () => {
     const confirmed = window.confirm("Are you sure you want to log out?");
     if (!confirmed) return;
