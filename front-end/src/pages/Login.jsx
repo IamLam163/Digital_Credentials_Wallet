@@ -49,7 +49,7 @@ export default function Login() {
         setData({ email: "", password: "" });
         setLoading(false);
         console.log("Authenticated User:", responseData.user);
-        localStorage.setItem("responseData", responseData);
+        localStorage.setItem("responseData", JSON.stringify(responseData));
         toast.success("Login Successful");
         console.log("User_Id:", responseData.user.id);
         // navigate("/dashboard");
