@@ -1,18 +1,15 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate()
 
   useEffect(() => {
     fetchUserData();
   }, []);
-
 
   const fetchUserData = async () => {
     try {
@@ -24,7 +21,6 @@ export function UserContextProvider({ children }) {
         setIsLoggedIn(true);
         console.log("Authenticated User:", parsedResponseData.user);
         console.log("User_Id:", parsedResponseData.user.id);
-        navigate(`/dashboard/${parsedResponseData.user.id}`);
       } else {
         console.log("Error:", parsedResponseData.error);
         setIsLoggedIn(false);
