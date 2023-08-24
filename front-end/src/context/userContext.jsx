@@ -1,7 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
-import { json } from "react-router-dom";
 export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
@@ -16,8 +15,7 @@ export function UserContextProvider({ children }) {
     try {
       const storedResponseData = localStorage.getItem("responseData");
       if (storedResponseData) {
-        // const parsedResponseData = JSON.parse(storedResponseData);
-        const parsedResponseData = json.parse(storedResponseData);
+        const parsedResponseData = JSON.parse(storedResponseData);
 
         if (!parsedResponseData.error && parsedResponseData.user) {
           setUser(parsedResponseData.user);
