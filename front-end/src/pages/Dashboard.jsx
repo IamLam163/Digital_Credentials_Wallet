@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { useState } from "react";
 // import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./Dashboard.css";
 import { FaUserEdit, FaBars, FaFolder } from "react-icons/fa";
 // import { FaUserEdit, FaBars, FaFile, FaFolder } from "react-icons/fa";
@@ -29,6 +29,7 @@ function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const navigate = useNavigate();
+  const { userId } = useParams();
 
   const handleLogout = async () => {
     const confirmed = window.confirm("Are you sure you want to logout?");
@@ -47,7 +48,7 @@ function Dashboard() {
       icon: <FaUserEdit />,
     },
     {
-      path: "/dashboard",
+      path: "/dashboard/:userId",
       name: "Folders",
       icon: <FaFolder />,
     },
