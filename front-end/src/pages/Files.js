@@ -15,8 +15,8 @@ const Files = () => {
     (async () => {
       try {
         const response = await axios.get(`/user/cv/${user?.id}`);
-        console.log('responseData:', response.data)
-        console.log('responseDataUser:', response.data.user)
+        console.log(response.data)
+        console.log(response.data.user)
         setCvList(response.data.user); // Make sure to use response.data.user
       } catch (error) {
         console.log(error);
