@@ -1,30 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import pic from "../images/svg-15.svg";
 import { Button } from "@mantine/core";
 import Sidebar from "./Sidebar.jsx";
+import { UserContext } from "../context/userContext";
 // import { AiOutlineCloudUpload } from 'react-icons/ai';
 
 const Files = () => {
   const [cvList, setCvList] = useState([]);
-  const [setCurrentUser] = useState(null);
-  // const [currentUser, setCurrentUser] = useState(null);
+  // const [setCurrentUser] = useState(null);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("/profile");
-        console.log(data);
-        setCurrentUser(data);
-        const response = await axios.get(`/user/cv/${data?.id}`);
-        setCvList(response.data);
-        setCvList(response.data);
+        const response = await axios.get(`/user/cv/${user?.id}`);
+        setCvList(response.data.user); // Make sure to use response.data.user
       } catch (error) {
         console.log(error);
       }
     })();
-  }, []);
-
+  }, [user]); // Trigger the effect whenever the user object changes
+  /*
+  useEffect(() => {
+    setCurrentUser(user)(async () => {
+      try {
+        // setCurrentUser(user);
+        // const { data } = await axios.get("/profile");
+        // console.log(data);
+        // setCurrentUser(data);
+        const response = await axios.get(`/user/cv/${user?.id}`);
+        setCvList(response.user);
+        setCvList(response.user);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [setCurrentUser]);
+*/
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this CV?")) {
       try {
